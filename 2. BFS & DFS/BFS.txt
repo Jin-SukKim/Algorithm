@@ -1,0 +1,27 @@
+/*Brute-force Search (BFS) 완전탐색 - 가능한 경우 전부 탐색
+장점: 쉬움, 정확도가 높음
+단점: 오래걸림*/
+
+ex) 
+    
+    int n, arr[1000]
+    cin >> n;
+    for(int i =0; i<n; i++)
+        cin >> arr[i];
+
+    int result = 0;
+    //O(N^2)
+    for(int i=0; i<n; i++)
+        for(int j=0; j<n; j++)
+            if(i!=j)
+                result = max(result, arr[i]+arr[j]);
+    cout<<result;
+
+ex2) 
+    iNt n, arr[1000];
+    cin >> n;
+    for(int i=0; i<n; i++)
+        cin >> arr[i];
+    //O(NlogN)
+    sort(arr, arr+n);
+    cout<<arr[N-1]+arr[N-2];
