@@ -1,6 +1,16 @@
-/*Brute-force Search (BFS) 완전탐색 - 가능한 경우 전부 탐색
+/*
+Brute-force Search (BFS) 너비 우선 탐색
+완전탐색 - 가능한 경우 전부 탐색
+현재 정점에 연결된 가까운 점들을 탐색
 장점: 쉬움, 정확도가 높음
-단점: 오래걸림*/
+단점: 오래걸림
+Usually using "Queue"
+Faster when verteces(목적지) is closer to the given source than DFS
+
+O(V + E)
+
+V = vertices E = edges
+*/
 
 ex) 
     
@@ -25,3 +35,96 @@ ex2)
     //O(NlogN)
     sort(arr, arr+n);
     cout<<arr[N-1]+arr[N-2];
+
+ex3)
+void bfs(int start, vector<int> graph[], bool check[]){
+	queue<int> q;
+
+	q.push(start);
+	check[start] = true;
+
+	while(!q.empty()){
+		int tmp = q.front();
+		q.pop();
+		printf("%d ",tmp);
+		for(int i=0; i<graph[tmp].size(); i++){
+
+			// 방문하지 않았다면
+			if(check[graph[tmp][i]] == false){
+				// 큐에 넣어주고 방문했음을 표시한다.
+				q.push(graph[tmp][i]);
+				check[graph[tmp][i]] = true;
+			}
+		}
+	}
+
+}
+
+example from GreekforGeeks (C++)
+
+void Graph::BFS(int s) 
+{ 
+    // Mark all the vertices as not visited 
+    bool *visited = new bool[V]; 
+    for(int i = 0; i < V; i++) 
+        visited[i] = false; 
+  
+    // Create a queue for BFS 
+    list<int> queue; 
+  
+    // Mark the current node as visited and enqueue it 
+    visited[s] = true; 
+    queue.push_back(s); 
+  
+    // 'i' will be used to get all adjacent 
+    // vertices of a vertex 
+    list<int>::iterator i; 
+  
+    while(!queue.empty()) 
+    { 
+        // Dequeue a vertex from queue and print it 
+        s = queue.front(); 
+        cout << s << " "; 
+        queue.pop_front(); 
+  
+        // Get all adjacent vertices of the dequeued 
+        // vertex s. If a adjacent has not been visited,  
+        // then mark it visited and enqueue it 
+        for (i = adj[s].begin(); i != adj[s].end(); ++i) 
+        { 
+            if (!visited[*i]) 
+            { 
+                visited[*i] = true; 
+                queue.push_back(*i); 
+            } 
+        } 
+    } 
+} 
+
+//https://gist.github.com/mailpraveens/78713d5d69601bdb6737
+
+void Graph::BFS(){
+    queue <int> myQueue;
+    bool * visited = new bool[V];
+    for(int i = 0; i < V; i++)
+        visited[i] = false;
+    
+    if (visited[0] == false) {
+        
+        myQueue.push(0);
+        visited[0] = true;
+        while (!myQueue.empty()) {
+            list<int>::iterator i;
+            int node = myQueue.front();
+            for (i = adj[node].begin(); i != adj[node].end(); i++) {
+                if (!visited[*i]) {
+                    cout << *i <<endl;
+                    visited[*i] = true;
+                    myQueue.push(*i);
+                }
+
+            }
+            myQueue.pop();
+        }
+    }   
+}

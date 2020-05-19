@@ -1,0 +1,142 @@
+/*
+Depth-First Search (DFS) 깊이 우선 탐색
+현재 정점에서 갈 수 있는 점들까지 들어가면서 탐색
+장점: 간단하다
+단점: BFS 보다 느리다
+Usually using "Stack" or "Recursion Function"
+Need to check visited node
+
+O(V + E)
+
+V = vertices E = edges
+*/
+
+Recursion Function
+ ex)
+int recursion(int num) {
+    if(num==0 || num == 1)
+        return num;
+    return recursion(num);
+}
+
+ex) 
+    
+    void dfs(int start){ 
+        if(visit[start]){ 
+            // 방문한경우 바로 빠져나옴 
+            return; 
+        } 
+        visit[start] = true; 
+            // 방문 printf("%d ", start); 
+        for(int i=0; i< a[start].size(); i++){ 
+            // 인접한 노드를 방문 
+            int x = a[start][i]; 
+            dfs(x); 
+        } 
+    }
+
+ex2) 
+    void dfs(int start, vector<int> graph[], bool check[]){
+	check[start]= true;
+	printf("%d ", start);
+
+	for(int i=0; i < graph[start].size(); i++){
+		int next = graph[start][i];
+		// 방문하지 않았다면
+		if(check[next]==false){
+			// 재귀함수를 호출한다.
+			dfs(next, graph, check);
+		}
+	}
+}
+
+ex3)
+void dfs(int start, vector<int> graph[], bool check[]){
+
+	stack<int> s;
+	s.push(start);
+	check[start] = true;
+	printf("%d ",start);
+
+	while(!s.empty()){
+
+		int current_node = s.top();
+		s.pop();
+		for(int i=0; i<graph[current_node].size(); i++){
+
+			int next_node = graph[current_node][i];
+
+			if(check[next_node]==false){
+				printf("%d ", next_node);
+				check[next_node] = true;
+				// pop()을 했었기 때문에 현재 current_node도 넣어줘야한다.
+				s.push(current_node);
+				s.push(next_node);
+				break;
+			}
+		}
+	}
+
+}
+
+example from GreekforGeeks (C++)
+
+//all nodes are connected
+void Graph::DFSUtil(int v, bool visited[]) 
+{ 
+    // Mark the current node as visited and 
+    // print it 
+    visited[v] = true; 
+    cout << v << " "; 
+  
+    // Recur for all the vertices adjacent 
+    // to this vertex 
+    list<int>::iterator i; 
+    for (i = adj[v].begin(); i != adj[v].end(); ++i) 
+        if (!visited[*i]) 
+            DFSUtil(*i, visited); 
+} 
+  
+// DFS traversal of the vertices reachable from v. 
+// It uses recursive DFSUtil() 
+void Graph::DFS(int v) 
+{ 
+    // Mark all the vertices as not visited 
+    bool *visited = new bool[V]; 
+    for (int i = 0; i < V; i++) 
+        visited[i] = false; 
+  
+    // Call the recursive helper function 
+    // to print DFS traversal 
+    DFSUtil(v, visited); 
+} 
+
+//some disconnected nodes. Usually using these algorithms.
+void Graph::DFSUtil(int v, bool visited[]) 
+{ 
+    // Mark the current node as visited and print it 
+    visited[v] = true; 
+    cout << v << " "; 
+  
+    // Recur for all the vertices adjacent to this vertex 
+    list<int>::iterator i; 
+    for(i = adj[v].begin(); i != adj[v].end(); ++i) 
+        if(!visited[*i]) 
+            DFSUtil(*i, visited); 
+} 
+  
+// The function to do DFS traversal. It uses recursive DFSUtil() 
+void Graph::DFS() 
+{ 
+    // Mark all the vertices as not visited 
+    bool *visited = new bool[V]; 
+    for (int i = 0; i < V; i++) 
+        visited[i] = false; 
+  
+    // Call the recursive helper function to print DFS traversal 
+    // starting from all vertices one by one 
+    for (int i = 0; i < V; i++) 
+        if (visited[i] == false) 
+            DFSUtil(i, visited); 
+} 
+  
