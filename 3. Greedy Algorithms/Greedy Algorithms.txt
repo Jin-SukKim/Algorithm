@@ -1,0 +1,196 @@
+/*
+Greedy Algorithms (탐욕 알고리즘)
+    - 미리 정한 기준에 따라서 매번 가장 좋아 보이는 답을 선택하는 알고리즘
+    - An algorithmic paradigm that builds up a solution piece by piece,
+      always choosing the next piece that offers the most obvious and immediate benefit
+*/
+
+//대표적인 알고리즘 : Minimum Spanning Tree, Prim Algorithm, Kruskal Algorithm ect
+
+ex) find minimum number of coins to pay
+
+//GeeksforGeeks
+// C++ program to find minimum 
+// number of denominations 
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+// All denominations of Indian Currency 
+int deno[] = { 1, 2, 5, 10, 20, 
+               50, 100, 500, 1000 }; 
+int n = sizeof(deno) / sizeof(deno[0]); 
+  
+void findMin(int V) 
+{ 
+    sort(deno, deno + n); 
+  
+    // Initialize result 
+    vector<int> ans; 
+  
+    // Traverse through all denomination 
+    for (int i = n - 1; i >= 0; i--) { 
+  
+        // Find denominations 
+        while (V >= deno[i]) { 
+            V -= deno[i]; 
+            ans.push_back(deno[i]); 
+        } 
+    } 
+  
+    // Print result 
+    for (int i = 0; i < ans.size(); i++) 
+        cout << ans[i] << " "; 
+} 
+  
+// Driver program 
+int main() 
+{ 
+    int n = 93; 
+    cout << "Following is minimal"
+         << " number of change for " << n 
+         << ": "; 
+    findMin(n); 
+    return 0; 
+} 
+
+ex2)
+
+// A Naive recursive C++ program to find minimum of coins 
+// to make a given change V 
+#include<bits/stdc++.h> 
+using namespace std; 
+  
+// m is size of coins array (number of different coins) 
+int minCoins(int coins[], int m, int V) 
+{ 
+   // base case 
+   if (V == 0) return 0; 
+  
+   // Initialize result 
+   int res = INT_MAX; 
+  
+   // Try every coin that has smaller value than V 
+   for (int i=0; i<m; i++) 
+   { 
+     if (coins[i] <= V) 
+     { 
+         int sub_res = minCoins(coins, m, V-coins[i]); 
+  
+         // Check for INT_MAX to avoid overflow and see if 
+         // result can minimized 
+         if (sub_res != INT_MAX && sub_res + 1 < res) 
+            res = sub_res + 1; 
+     } 
+   } 
+   return res; 
+} 
+  
+// Driver program to test above function 
+int main() 
+{ 
+    int coins[] =  {9, 6, 5, 1}; 
+    int m = sizeof(coins)/sizeof(coins[0]); 
+    int V = 11; 
+    cout << "Minimum coins required is "
+         << minCoins(coins, m, V); 
+    return 0; 
+} 
+
+ex3)
+
+// A Dynamic Programming based C++ program to find minimum of coins 
+// to make a given change V 
+#include<bits/stdc++.h> 
+using namespace std; 
+  
+// m is size of coins array (number of different coins) 
+int minCoins(int coins[], int m, int V) 
+{ 
+    // table[i] will be storing the minimum number of coins 
+    // required for i value.  So table[V] will have result 
+    int table[V+1]; 
+  
+    // Base case (If given value V is 0) 
+    table[0] = 0; 
+  
+    // Initialize all table values as Infinite 
+    for (int i=1; i<=V; i++) 
+        table[i] = INT_MAX; 
+  
+    // Compute minimum coins required for all 
+    // values from 1 to V 
+    for (int i=1; i<=V; i++) 
+    { 
+        // Go through all coins smaller than i 
+        for (int j=0; j<m; j++) 
+          if (coins[j] <= i) 
+          { 
+              int sub_res = table[i-coins[j]]; 
+              if (sub_res != INT_MAX && sub_res + 1 < table[i]) 
+                  table[i] = sub_res + 1; 
+          } 
+    } 
+    return table[V]; 
+} 
+  
+// Driver program to test above function 
+int main() 
+{ 
+    int coins[] =  {9, 6, 5, 1}; 
+    int m = sizeof(coins)/sizeof(coins[0]); 
+    int V = 11; 
+    cout << "Minimum coins required is "
+         << minCoins(coins, m, V); 
+    return 0; 
+} 
+
+ex) Minimum possible travel cost among N cities
+
+// C++ implementation of the approach 
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+// Function to return the minimum cost to 
+// travel from the first city to the last 
+int minCost(vector<int>& cost, int n) 
+{ 
+  
+    // To store the total cost 
+    int totalCost = 0; 
+  
+    // Start from the first city 
+    int boardingBus = 0; 
+  
+    for (int i = 1; i < n; i++) { 
+  
+        // If found any city with cost less than 
+        // that of the previous boarded 
+        // bus then change the bus 
+        if (cost[boardingBus] > cost[i]) { 
+  
+            // Calculate the cost to travel from 
+            // the currently boarded bus 
+            // till the current city 
+            totalCost += ((i - boardingBus) * cost[boardingBus]); 
+  
+            // Update the currently boarded bus 
+            boardingBus = i; 
+        } 
+    } 
+  
+    // Finally calculate the cost for the 
+    // last boarding bus till the (N + 1)th city 
+    totalCost += ((n - boardingBus) * cost[boardingBus]); 
+    return totalCost; 
+} 
+  
+// Driver code 
+int main() 
+{ 
+    vector<int> cost{ 4, 7, 8, 3, 4 }; 
+    int n = cost.size(); 
+  
+    cout << minCost(cost, n); 
+  
+    return 0; 
+} 
