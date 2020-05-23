@@ -1,0 +1,13 @@
+/*
+Minimum Spanning Tree (최소 신장 트리)
+    - 그래프의 최소 연결 부분 그래프
+    - 노드 사이의 값을 최소로 해 모든 노드를 연결시키는 그래프
+    - 사이클이 발생하면 안된다. 즉, 연결된 노드를 표시해야된다
+    노드 = 정점, 간선 = 거리, 비용
+    알고리즘: Kruskal MST algorithm, Prim MST algorithm
+*/
+
+/*
+Kruskal MST algorithm : O(elog base 2 e) - Sparse Graph (희소 그래프)에 적합
+Prim MST algorithm : O(n^2) - Dense Graph (밀집 그래프)에 적합
+*/
