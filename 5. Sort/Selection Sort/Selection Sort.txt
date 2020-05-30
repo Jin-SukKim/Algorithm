@@ -1,0 +1,59 @@
+/*
+Selection Sort (선택 정렬) :
+    
+    - sorting an array by repeatedly finding the minimum element
+    and putting it at the beginning
+
+
+    - O(N^2)
+
+    Function : N * ( N + 1 ) / 2
+*/
+
+ex)
+void swap(int *xp, int *yp)  
+{  
+    int temp = *xp;  
+    *xp = *yp;  
+    *yp = temp;  
+}  
+  
+void selectionSort(int arr[], int n)  
+{  
+    int i, j, min_idx;  
+  
+    // One by one move boundary of unsorted subarray  
+    for (i = 0; i < n-1; i++)  
+    {  
+        // Find the minimum element in unsorted array  
+        min_idx = i;  
+        for (j = i+1; j < n; j++)  
+        if (arr[j] < arr[min_idx])  
+            min_idx = j;  
+  
+        // Swap the found minimum element with the first element  
+        swap(&arr[min_idx], &arr[i]);  
+    }  
+}  
+
+ex2)
+ void selectionSort(int arr[]) 
+    { 
+        int n = arr.length; 
+  
+        // One by one move boundary of unsorted subarray 
+        for (int i = 0; i < n-1; i++) 
+        { 
+            // Find the minimum element in unsorted array 
+            int min_idx = i; 
+            for (int j = i+1; j < n; j++) 
+                if (arr[j] < arr[min_idx]) 
+                    min_idx = j; 
+  
+            // Swap the found minimum element with the first 
+            // element 
+            int temp = arr[min_idx]; 
+            arr[min_idx] = arr[i]; 
+            arr[i] = temp; 
+        } 
+    }

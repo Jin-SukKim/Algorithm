@@ -1,0 +1,21 @@
+/*
+Linear Search: 가장 기본적인 element 찾는 방식. Index 0 부터 array 끝까지 하나씩 찾는다.
+    - Start from the leftmost element of arr[] 
+    and one by one compare x with each element of arrr[]
+    
+    - if  x mathces with an element, return the index or element
+
+    - if x doesn't match with any of elements, return -1
+
+    - O(n)
+*/
+
+ex) 
+
+int LinearSearch(int arr[], int n, int x) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == x)
+            return i;
+    }
+    return -1;
+}

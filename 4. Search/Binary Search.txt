@@ -1,0 +1,68 @@
+/*
+Binary Search : 정력된 array를 가지고 array 길이의 반에 해당하는 index를 찾아 시작해, 계속 길이의 반을 줄여가면서 원하는 값을 찾는 방법
+    
+    - Search a sorted array by repeatedly dividing the search interval in half.
+    
+    - if the value of the search key is less than the item in the middle of the array, narrow the interval to the lower half
+    
+    - if the value is higher, narrow it to the upper half.
+    
+    -repeate this process until the value is found or interval is empty
+
+    - O(log n)
+    - O(n)
+*/
+
+ex)
+/* copyright from Geeksforgeeks
+ start with
+ r = sizeof(arr) / sizeof(arr[0]) - 1 //index start with 0, r is last index
+ l = 0 //it is first index of array
+ r = right, l = left
+ sizeof(arr) returns the number of bytes the array occupies. 
+ Since each element can take more than 1 byte, 
+ we devide it with size of one element which is sizeof(array[0]).
+ This gives result number of elements in the array.
+*/
+ex)
+int binarySearch(int arr[], int l, int r, int x) {
+    if(r >= l) {
+        int mid = l + (r - l) / 2;
+
+        if(arr[mid] == x)
+            //if x is at the middle
+            return mid; 
+            
+        if (arr[mid] > x)
+            // x is less, searching left side of array
+            return binarySearch(arr, l, mid - 1, x); 
+        
+        // x is higher, searching right side of array 
+        return binarySearch(arr, mid+1, r, x); }
+
+    return -1; //not found
+}
+
+ex2)
+int binarySearch(int arr[], int l, int r, int x) 
+{ 
+    while (l <= r) { 
+        int m = l + (r - l) / 2; 
+  
+        // Check if x is present at mid 
+        if (arr[m] == x) 
+            return m; 
+  
+        // If x greater, ignore left half 
+        if (arr[m] < x) 
+            l = m + 1; 
+    
+        // If x is smaller, ignore right half 
+        else
+            r = m - 1; 
+    } 
+  
+    // if we reach here, then element was 
+    // not present 
+    return -1; 
+} 
