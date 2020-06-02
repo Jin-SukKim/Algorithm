@@ -1,0 +1,114 @@
+/*
+Sort() function in C++ algorithm library
+
+#include <algorithm>
+
+    //basic - asccending order (오름차순)
+    
+*/
+
+ex)
+
+int main(void) {
+    int a[10] = {2, 3, 4, 5, 6, 4, 7, 1, 0, 9}
+
+    //a is first address
+    //array's first address and last address + 1, sort 10 elements
+    sort(a, a + 10); 
+
+    for(int i = 0; i < 10; i++)
+        cout << a[i] << ' ';
+}
+
+ex2)
+// check return value to sort
+bool compare(int a, int b) {
+    return a < b; // left is smaller than right, descending order
+    // a > b left is bigger than right, ascending order
+}
+
+int main(void) {
+    int a[10] = {2, 3, 4, 5, 6, 4, 7, 1, 0, 9}
+    sort(a, a + 10, compare);
+
+    for(int i = 0; i < 10; i++)
+        cout << a[i] << ' ';
+}
+
+ex3)
+//sort based on special variable
+//not efficient on process speed side
+class Example {
+public:
+    string name;
+    int num;
+    Example(String name, int num) {
+        this->name = name;
+        this->num = num;
+    }
+
+    // sort depends on num
+    bool operator < (Example &ex) {
+        return this->num < ex.num;
+    }
+};
+
+bool compare(int a, int b) {
+    return a > b;
+}
+
+int main(void) {
+    Example examples[] = {
+        Example("1", 10),
+        Example("2", 15),
+        Example("3", 8),
+        Example("4", 23),
+        Example("5", 12),
+    };
+    sort(examples, examples + 5);
+    for(int i = 0; i <5; i++)
+        cout << examples[i].name << ' ';
+}
+
+ex4)
+//using Vector and Pari to make Short Coding for contest
+int main(void) {
+    vector<pair<int, string> v;
+    v.push_back(pair<int, string> (15, "1"));
+    v.push_back(pair<int, string> (20, "2"));
+    v.push_back(pair<int, string> (10, "3"));
+    v.push_back(pair<int, string> (25, "4"));
+    v.push_back(pair<int, string> (5, "5"));
+
+    sort(v.begin(), v.end());
+    for(int i = 0; i < v.size(); i++)
+        cout << v[i].second << ' ';
+    
+    return 0;
+}
+
+ex5)
+
+bool compare(pair<string, pair<int, int>> a,
+             pair<string, pair<int, int>> b) {
+    if(a.second.first == b.second.first) { // check if first int is same
+        return a.second.second > b.second.second; // compare second int
+    } else {
+        return a.second.first > b.second.first; // compare first int
+    }
+}
+
+int main(void) {
+    vector<pair<int, string> v;
+    v.push_back(pair<int, string> ("1", make_pair(10, 2000)));
+    v.push_back(pair<int, string> ("2", make_pair(15, 1950)));
+    v.push_back(pair<int, string> ("3", make_pair(20, 1800)));
+    v.push_back(pair<int, string> ("4", make_pair(10,  1900)));
+    v.push_back(pair<int, string> ("5", make_pair(25, 2010)));
+
+    sort(v.begin(), v.end(), compare);
+    for(int i = 0; i < v.size(); i++)
+        cout << v[i].second << ' ';
+    
+    return 0;
+}
