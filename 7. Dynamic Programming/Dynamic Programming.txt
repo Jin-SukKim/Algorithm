@@ -1,0 +1,47 @@
+/*
+Dynamic Programming :
+
+    - 하나의 문제를 단 한 번만 풀도록 하는 알고리즘
+    - 한 번 푼 것을 여러 번 다시 푸는 비효율적인 알고리즘을 개선시키는 방법
+
+    - solves a given complex problem by breaking it into subproblems
+    and stores the results of subporblems to avoid computing the same results again.
+
+    - two property
+        1) Overlapping (겹치는) subproblems
+            - Used when solutions of same subproblems are needed again and again
+                ex) fibonacci
+            - subproblems are stored in a table, they dont have to be recomputed.
+            - not usefule when there are no common subproblems b/c there is no point storing the solutions
+        
+        2) Optimal (최적) Substructure
+            - optimal soution ofthe given problem can be obtained by using optimal solutions of its subproblems
+                ex) "Shortest" Path problem, "Longest" Path problem
+
+    - Memoization : 이미 계산한 결과는 배열에 저장함으로써 나중에 동일한 계산을 해야 할 때는 저장 값을 단순히 반환
+*/
+
+
+ex1)
+// Overlapping subproblems
+/* simple recursive program for Fibonacci numbers */
+int fib(int n) 
+{ 
+if ( n <= 1 ) 
+	return n; 
+return fib(n-1) + fib(n-2); 
+}
+
+ex2)
+//Memoization in fibonacci
+int d[100];
+
+int fib(int x){
+    if(x == 1)
+        return 1;
+    if(x == 2)
+        return 1;
+    if(d[x] != 0)
+        return d[x];
+    return d[x] = fib(x - 1) + fib(x - 2);
+}
