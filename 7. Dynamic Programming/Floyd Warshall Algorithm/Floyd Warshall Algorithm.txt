@@ -1,7 +1,7 @@
 /*
 Floyd Washall Algorithm:
     
-    -모든 정점에서 모든 정점으로의 최단경로를 구하는 알고리즘
+    - 모든 정점에서 모든 정점으로의 최단경로를 구하는 알고리즘
     - 거져가는 정점을 기준으로 알고리즘 수행
 
     - to find shortest distacnes between every pair of vertices in a given edge weighted directed Graaph
