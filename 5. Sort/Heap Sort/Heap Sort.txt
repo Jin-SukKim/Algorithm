@@ -5,6 +5,7 @@ Heap sort :
     Repeating this process for remaining element.
     - 시간 복잡도가 좋은편
     - 힙 정렬이 가장 유용한 경우는 전체 자료를 정렬하는 것이 아니라 가장 큰 값 몇개만 필요할 때 이다.
+    - 최대값 & 최소값 찾기 좋다
     - 노드가 가지고 있는 두 자식과 비교해 더큰 자식과 노드의 위치를 바꿔준다
     - Using Heapify Algorithm - compare two children and switch position with node and bigger child than node.
     - O(n log base 2 n), O(nlog n)
