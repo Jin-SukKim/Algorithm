@@ -4,7 +4,7 @@ import collections
 # pop(0)은 O(n)인데 deque는 O(1)이다.
 def isPalindrome(self, s: str) -> bool:
     # 자료형 deque로 선언
-    strs: Deque = collections.deque()
+    strs = collections.deque()
     
     for char in s:
         if char.isalnum():
