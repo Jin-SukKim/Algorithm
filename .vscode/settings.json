@@ -43,6 +43,16 @@
         "xstring": "cpp",
         "xtr1common": "cpp",
         "xutility": "cpp",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "vector": "cpp",
+        "algorithm": "cpp",
+        "map": "cpp",
+        "xtree": "cpp",
+        "locale": "cpp",
+        "regex": "cpp",
+        "xlocbuf": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xloctime": "cpp"
     }
 }
