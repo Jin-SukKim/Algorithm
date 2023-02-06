@@ -1,0 +1,7 @@
+Linear Data Structure (선형 자료구조)
+
+선형 자료구조는 데이터 요소가 순차적(Sequential)로 배열되는 구조를 말한다.
+이 구조는 단일 레벨로 구성된다.
+즉 한 번에 탐색이 가능하며, 구현하기도 쉽다.
+
+list, stack, queue linked-list 등이 모두 선형 자료구조에 속한다.
