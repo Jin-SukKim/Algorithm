@@ -36,6 +36,7 @@
 #include <algorithm>
 #include <iostream>
 
+// time : 15ms, space : 12.6MB (공간 절약 필요)
 std::vector<int> twoSum(std::vector<int> &nums, int target)
 {
     int i = 0;
@@ -46,8 +47,12 @@ std::vector<int> twoSum(std::vector<int> &nums, int target)
 
     // using structure bind and for each to get key and value pair from map
     for (const auto& [key, value]: res) {
-        if (res.at(target-key) && value != res[target-key])
-            return std::vector<int>{value, res[target-key]};
+        auto itr = res.find(target-key);
+        if(itr != res.end()) {
+            if(itr->second == value)
+                itr++;
+            return std::vector<int>{value, itr->second};
+        }
     }
 
     return std::vector<int>{0,0};

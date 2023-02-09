@@ -1,7 +1,8 @@
 # 첫 번째 수를 뺀 결과 키 조회
 
+# 57ms, 15.3MB
 # time-complexity O(n)
-def twoSum(self, nums: list[int], target: int) -> list[int]:
+def twoSum(self, nums: List[int], target: int) -> List[int]:
     nums_map = {}
     
     # 키와 값을 바꿔서 딕셔너리로 저장
