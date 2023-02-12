@@ -21,7 +21,14 @@
     0 <= height[i] <= 105
 */
 #include <vector>
+#include <algorithm>
 
 int trap(std::vector<int> &height)
 {
+    auto i = height.begin();
+    auto r = height.rbegin();
+
+    int maxHeight = *std::max_element(height.begin(), height.end());
+
+
 }
