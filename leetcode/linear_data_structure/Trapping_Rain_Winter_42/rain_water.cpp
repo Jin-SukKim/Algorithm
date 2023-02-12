@@ -25,10 +25,28 @@
 
 int trap(std::vector<int> &height)
 {
+    int volume = 0; // 물의 양
     auto i = height.begin();
-    auto r = height.rbegin();
+    auto r = height.end() - 1;
 
-    int maxHeight = *std::max_element(height.begin(), height.end());
+    int leftMax = 0, rightMax = 0;
 
+    while(i != r) {
+        // 현재의 최고 벽 높이
+        leftMax = std::max(leftMax, *i);
+        rightMax = std::max(rightMax, *r);
 
+        // 왼쪽 포인터가 오른쪽 포인터보다 작다면 왼쪽을 옮기고
+        // 아니라면 오른쪽을 옮겨 최종적으로 제일 높은 벽에 도달하면 끝난다.
+        if (leftMax < rightMax) {
+            volume += (leftMax - *i);
+            i++;
+        }
+        else {
+            volume += (rightMax - *r);
+            r--;
+        }
+    }
+
+    return volume;
 }
