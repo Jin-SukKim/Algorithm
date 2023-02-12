@@ -1,9 +1,6 @@
 # Algorithm
 Algorithm Study
 
-Master branch : 
-Algorithm theory
-
-Algo_Sites branch : 
+Algorithm Theory and Solutions of Algorithm problem sites (Leetcode, Backjoon etc)
 My solutions to algorithm sites' questions from Leetcode, Backjoon, etc
 
