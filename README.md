@@ -1,5 +1,5 @@
-Algorithm
+# Algorithm
+Algorithm Study
 
-main branch is for theory
+My solutions to algorithm sites' questions from Leetcode, Backjoon, etc
 
-Algo_Sites branch is for algorithm problem solving sites
