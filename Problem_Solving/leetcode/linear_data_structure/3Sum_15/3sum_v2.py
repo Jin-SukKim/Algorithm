@@ -29,4 +29,4 @@ def threeSum(self, nums: List[int]) -> List[List[int]]:
                 left+= 1
                 right -= 1
 
-    return resutls
+    return results

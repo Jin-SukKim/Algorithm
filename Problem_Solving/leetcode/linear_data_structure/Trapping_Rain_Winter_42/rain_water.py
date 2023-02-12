@@ -12,7 +12,7 @@ def trap(self, height: List[int]) -> int:
 
     while left < right:
         # 제일 높은 기둥을 기준으로 좌우로 물을 채워준다.
-        left_max, height_max = max(height[left], left_max),
+        left_max, right_max = max(height[left], left_max),
         max(height[right], right_max)
 
         # 더 높은 쪽을 향해 투 포인터 이동
