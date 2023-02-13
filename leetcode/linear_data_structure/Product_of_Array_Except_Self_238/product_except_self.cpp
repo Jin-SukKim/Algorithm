@@ -25,7 +25,6 @@
     (The output array does not count as extra space for space complexity analysis.)
 */
 #include <vector>
-#include <array>
 
 // 자신을 중심으로 왼쪽에 있는 값들의 곱과 오른쪽 값들의 곲을 따로 구한뒤
 // 둘을 곱해주면 답을 얻을 수 있다.
