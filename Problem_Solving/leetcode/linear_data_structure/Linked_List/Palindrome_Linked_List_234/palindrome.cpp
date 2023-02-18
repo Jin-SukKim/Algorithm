@@ -42,5 +42,13 @@ struct ListNode{
 
 bool isPalindrome(ListNode *head)
 {
+    ListNode* reverse = nullptr;
+    ListNode* forward = head;
+    while (forward->next != nullptr) {
+        reverse = head;
+        head = head->next;
+        reverse->next =
+    }
+    
 
 }
