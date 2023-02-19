@@ -40,15 +40,61 @@ struct ListNode{
     ListNode(int x, ListNode* next) : val(x), next(next) {};
 };
 
+ListNode* addEnd(ListNode* head, int value) {
+    ListNode* n = new ListNode(value);
+
+    ListNode* extend = head;
+    while(extend->next) {
+        extend = extend->next;
+    }
+
+    extend->next = n;
+    return head;
+}
+
+/*
+    런너(Runner)는 연결 리스트르 순회할 때 2개의 포인터를
+    동시에 사용하는 기법이다.
+    한 포인터가 다른 포인터보다 앞서게 하여 병합 지점이나
+    중간 위치, 길이 등을 판별할 때 유용하게 사용할 수 있따.
+
+    보통 fast runner는 두칸씩, slow runner는 한칸씩 이동해
+    slow runner가 중간을 가르킬떄 fast runner는 끝에 도달한다.
+*/
 bool isPalindrome(ListNode *head)
 {
     ListNode* reverse = nullptr;
-    ListNode* forward = head;
-    while (forward->next != nullptr) {
-        reverse = head;
-        head = head->next;
-        reverse->next =
-    }
-    
+    ListNode* slow = head;
+    ListNode* fast = head;
 
+    ListNode* temp = nullptr;
+    while (fast && fast->next) {
+        fast = fast->next->next;
+        temp = reverse;
+        reverse = slow;
+        if (temp)
+            reverse->next = temp;
+        slow = slow->next;
+    }
+
+    if (fast)
+        slow = slow->next;
+
+    while (reverse && reverse->val == slow->val) {
+        slow = slow->next;
+        reverse = reverse->next;
+    }
+
+    return !reverse;
+}
+
+int main() {
+    ListNode* head = new ListNode(1);
+    head = addEnd(head, 2);
+    head = addEnd(head, 2);
+    head = addEnd(head, 1);
+
+    isPalindrome(head);
+
+    return 0;
 }
