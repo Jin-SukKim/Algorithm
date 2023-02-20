@@ -29,6 +29,7 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+#include <iostream>
 struct ListNode{
     int val;
     ListNode* next;
@@ -52,6 +53,13 @@ ListNode* addEnd(ListNode* head, int value) {
     return head;
 }
 
+// 283ms, 133.4MB (too slow, too much usage of memory)
+inline ListNode* addFront(ListNode* head, int value) {
+    ListNode* n = new ListNode(value);
+
+    n->next = head;
+    return n;
+}
 /*
     런너(Runner)는 연결 리스트르 순회할 때 2개의 포인터를
     동시에 사용하는 기법이다.
@@ -67,13 +75,9 @@ bool isPalindrome(ListNode *head)
     ListNode* slow = head;
     ListNode* fast = head;
 
-    ListNode* temp = nullptr;
     while (fast && fast->next) {
         fast = fast->next->next;
-        temp = reverse;
-        reverse = slow;
-        if (temp)
-            reverse->next = temp;
+        reverse = addFront(reverse, slow->val);
         slow = slow->next;
     }
 
@@ -94,7 +98,7 @@ int main() {
     head = addEnd(head, 2);
     head = addEnd(head, 1);
 
-    isPalindrome(head);
+    std::cout << std::boolalpha << isPalindrome(head) << std::endl;
 
     return 0;
 }
