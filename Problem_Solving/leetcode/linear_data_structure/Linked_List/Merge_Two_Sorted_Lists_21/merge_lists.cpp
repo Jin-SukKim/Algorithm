@@ -46,13 +46,19 @@ struct ListNode {
 
 // 8ms, 14.7MB
 ListNode *mergeTwoLists(ListNode *list1, ListNode *list2)
-{
+{   
+    /*
+        > 비교의 우선순위가 높아 먼저 비교하고 list1 존재유무
+        and 그리고 or 순으로 비교한다.
+        l1과 l2의 값을 비교해 작은 값이 왼쪽에 오게한다.
+    */
     if (!list1 || (list2 && list1->val > list2->val)) {
         ListNode* temp = list1;
         list1 = list2;
-         list2 = temp;
+        list2 = temp;
     }
     if (list1) {
+        // 재귀호출로 다음 연결 리스트가 스왑될 수 있게 한다.
         list1->next = mergeTwoLists(list1->next, list2);
     }
     return list1;
