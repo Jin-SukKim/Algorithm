@@ -36,6 +36,8 @@
  * };
  */
 class Solution {
+    
+public:
     struct ListNode {
         int val;
         ListNode *next;
@@ -43,7 +45,7 @@ class Solution {
         ListNode(int x) : val(x), next(nullptr) {}
         ListNode(int x, ListNode *next) : val(x), next(next) {}
     };
-public:
+    
     // 반복자 사용
     // 3ms, 8.3MB
     ListNode* reverseList(ListNode* head) {

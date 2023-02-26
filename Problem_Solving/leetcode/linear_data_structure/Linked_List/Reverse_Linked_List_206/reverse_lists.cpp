@@ -1,4 +1,6 @@
 class Solution {
+    
+public:
     struct ListNode {
         int val;
         ListNode *next;
@@ -6,7 +8,7 @@ class Solution {
         ListNode(int x) : val(x), next(nullptr) {}
         ListNode(int x, ListNode *next) : val(x), next(next) {}
     };
-public:
+    
     // recursive 사용
     ListNode* reverseList(ListNode* head, ListNode* prev = nullptr) {
         if (!head) {
