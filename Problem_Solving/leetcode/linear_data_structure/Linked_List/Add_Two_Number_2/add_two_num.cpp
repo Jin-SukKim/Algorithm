@@ -36,7 +36,7 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-
+#include <string>
 class Solution {
 public:
     struct ListNode {
@@ -47,7 +47,13 @@ public:
         ListNode(int x, ListNode *next) : val(x), next(next) {}
     };
 
+    ListNode* reverseList(ListNode* head) {}
+
+    int convertToInt(std::string num) {}
+    
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         
     }
+
+    
 };

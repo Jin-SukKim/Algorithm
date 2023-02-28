@@ -10,8 +10,6 @@ class Solution:
         return prev
 
     # 연결 리스트를 파이썬 리스트로 변환
-
-
     def toList(self, node: ListNode) -> List:
         list: List = []
         while node:
