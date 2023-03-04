@@ -36,6 +36,8 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
+// 29ms, 71.6MB (too slow, too much space)
 #include <string>
 struct ListNode
 {
@@ -58,46 +60,39 @@ void addNode(ListNode *head, int val)
     head->next = n;
 }
 
-ListNode *reverseList(ListNode *head)
-{
-    ListNode *next = head;
-    ListNode *rev = nullptr;
+ListNode* add(ListNode* l1, ListNode* l2) {
+    int sum = 0, up = 0, s = 0;
 
-    while (head)
-    {
-        next = head->next;
-        head->next = rev;
-        rev = head;
-        head = next;
-    }
+    ListNode* head = new ListNode();
+    ListNode* re = head;
+    while (l1 || l2) {
+        sum = 0;
+        if (l1) {
+            sum += l1->val;
+            l1 = l1->next;
+        }
 
-    return rev;
-}
-
-int add(ListNode* head) {
-    std::string num = "";
-
-    while (head) {
-        num.push_back(head->val);
+        if (l2) {
+            sum += l2->val;
+            l2 = l2->next;
+        }
+        sum += up;
+        up = sum / 10;
+        head->next = new ListNode(sum % 10);
         head = head->next;
     }
 
-    return std::stoi(num);
+    if (up)
+        head->next = new ListNode(up);
+
+    head = re->next;
+    delete re;
+    return head;
 }
 
 ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
-{
-    l1 = reverseList(l1);
-    l2 = reverseList(l2);
-
-    std::string num = std::to_string(add(l1) + add(l2));
-
-    ListNode* numList = l1;
-    for ( std::string::iterator it=num.begin(); it!=num.end(); ++it)
-    {
-        numList->val += *it;
-        numList = numList->next;
-    }
+{   
+    l1 = add(l1, l2);
 
     return l1;
 }
@@ -106,10 +101,11 @@ int main()
 {
     ListNode* head1 = new ListNode(2);
     addNode(head1, 4);
-    addNode(head1, 3);
+    addNode(head1, 9);
     ListNode* head2 = new ListNode(5);
     addNode(head2, 6);
     addNode(head2, 4);
+    addNode(head2, 9);
 
     addTwoNumbers(head1, head2);
     return 0;
