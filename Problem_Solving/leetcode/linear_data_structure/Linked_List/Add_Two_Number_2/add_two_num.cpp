@@ -36,8 +36,6 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-
-// 29ms, 71.6MB (too slow, too much space)
 #include <string>
 struct ListNode
 {
@@ -60,11 +58,14 @@ void addNode(ListNode *head, int val)
     head->next = n;
 }
 
-ListNode* add(ListNode* l1, ListNode* l2) {
+// 29ms, 71.6MB (too slow, too much space)
+ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
+{   
     int sum = 0, up = 0, s = 0;
 
     ListNode* head = new ListNode();
     ListNode* re = head;
+    
     while (l1 || l2) {
         sum = 0;
         if (l1) {
@@ -88,13 +89,6 @@ ListNode* add(ListNode* l1, ListNode* l2) {
     head = re->next;
     delete re;
     return head;
-}
-
-ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
-{   
-    l1 = add(l1, l2);
-
-    return l1;
 }
 
 int main()
