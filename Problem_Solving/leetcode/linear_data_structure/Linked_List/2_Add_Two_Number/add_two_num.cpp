@@ -58,22 +58,45 @@ void addNode(ListNode *head, int val)
     head->next = n;
 }
 
+ListNode *reverseList(ListNode *head)
+{
+    ListNode *rev = nullptr;
+    ListNode *next = nullptr;
+    while (head)
+    {
+        // 역순으로 바꾸기 전 리스트의 다음 노드
+        next = head->next;
+        // 역순으로 바꿀 리스트의 다음 노드를 여태까지
+        // 역순으로 바꾼 리스트로 바꿔주기
+        // 이러면 원래 리스트와의 연결이 끊긴다.
+        head->next = rev;
+        // 역순 리스트 갱신
+        rev = head;
+        head = next;
+    }
+
+    return rev;
+}
+
 // 29ms, 71.6MB (too slow, too much space)
 ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
-{   
+{
     int sum = 0, up = 0, s = 0;
 
-    ListNode* head = new ListNode();
-    ListNode* re = head;
-    
-    while (l1 || l2) {
+    ListNode *head = new ListNode();
+    ListNode *re = head;
+
+    while (l1 || l2)
+    {
         sum = 0;
-        if (l1) {
+        if (l1)
+        {
             sum += l1->val;
             l1 = l1->next;
         }
 
-        if (l2) {
+        if (l2)
+        {
             sum += l2->val;
             l2 = l2->next;
         }
@@ -93,10 +116,10 @@ ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
 
 int main()
 {
-    ListNode* head1 = new ListNode(2);
+    ListNode *head1 = new ListNode(2);
     addNode(head1, 4);
     addNode(head1, 9);
-    ListNode* head2 = new ListNode(5);
+    ListNode *head2 = new ListNode(5);
     addNode(head2, 6);
     addNode(head2, 4);
     addNode(head2, 9);
