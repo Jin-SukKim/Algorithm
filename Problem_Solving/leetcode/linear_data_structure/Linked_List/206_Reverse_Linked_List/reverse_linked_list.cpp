@@ -53,7 +53,7 @@ public:
         ListNode* next = nullptr;
         while (head) {
             // 역순으로 바꾸기 전 리스트의 다음 노드
-            next= head->next; 
+            next = head->next; 
             // 역순으로 바꿀 리스트의 다음 노드를 여태까지 
             // 역순으로 바꾼 리스트로 바꿔주기
             // 이러면 원래 리스트와의 연결이 끊긴다.

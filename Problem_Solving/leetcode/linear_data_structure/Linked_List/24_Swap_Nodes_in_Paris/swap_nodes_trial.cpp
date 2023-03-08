@@ -54,26 +54,35 @@ inline void swapNode(ListNode* head, ListNode* next) {
 
 ListNode *swapPairs(ListNode *head)
 {   
-    ListNode* root = new ListNode();
-    ListNode* prev = root;
-    prev->next = head;
-
-    ListNode* next = nullptr;
-    while (head && head->next) {
-        next = head->next;
-        head->next = next->next;
-        next->next = head;
-
-        prev->next = next;
-
-        head= head->next;
-        prev = prev->next->next;
+    if (!head || !head->next)
+        return head;
+    // 노드가 두개 이상일 때 swap 해주면 두번째가 맨처음으로 오므로 바꿔준다.
+    ListNode* root = head->next;
+    
+    if (!root->next) {
+        swapNode(head, head);
+        return root;
     }
 
-    head = root->next;
-    delete root;
+    ListNode* connect = root;
+    ListNode* next = nullptr;
 
-    return head;
+    while (head && head->next) {
+        swapNode(head, next);
+        
+        // 1번째가 2번쨰로 바뀌었으니
+        // 다음으로 넘어가면 원래 위치에서 2번 건너뛴것과 같다.
+        head = head->next;
+        
+        if (!head) {
+            connect->next = next;
+            return root;
+        }
+            
+        connect = connect->next;
+    }
+    
+    return root;
 }
 
 int main() {
