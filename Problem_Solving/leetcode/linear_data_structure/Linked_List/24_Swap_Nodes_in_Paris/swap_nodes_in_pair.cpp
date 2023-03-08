@@ -79,6 +79,8 @@ ListNode *swapPairs(ListNode *head)
 int main() {
     ListNode *head = new ListNode(1);
     addNode(head, 2);
+    addNode(head, 3);
+    addNode(head, 4);
 
     head = swapPairs(head);
     return 0;

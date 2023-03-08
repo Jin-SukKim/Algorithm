@@ -43,43 +43,32 @@ void addNode(ListNode *head, int val)
     head->next = n;
 }
 
-inline void swapNode(ListNode* head, ListNode* next) {
-    // 현재 노드로 부터 2번쨰 노드를 가리킨다.
-    next = head->next;
-    // 현재 노드의 다음 노드가 3번째 노드를 가리키게한다.
-    head->next = next->next;
-    // 2번째 노드의 다음 노드가 현재 노드가 된게한다.
-    next->next = head;
-}
-
 ListNode *swapPairs(ListNode *head)
 {   
     if (!head || !head->next)
         return head;
     // 노드가 두개 이상일 때 swap 해주면 두번째가 맨처음으로 오므로 바꿔준다.
     ListNode* root = head->next;
-    
-    if (!root->next) {
-        swapNode(head, head);
-        return root;
-    }
-
-    ListNode* connect = root;
+    ListNode* connect = nullptr;
     ListNode* next = nullptr;
-
+    
     while (head && head->next) {
-        swapNode(head, next);
+        // 현재 노드로 부터 2번쨰 노드를 가리킨다.
+        next = head->next;
+        // 현재 노드의 다음 노드가 3번째 노드를 가리키게한다.
+        head->next = next->next;
+        // 2번째 노드의 다음 노드가 현재 노드가 된게한다.
+        next->next = head;
         
+        if (connect)
+            connect->next = next;
+        else 
+            connect = root;
         // 1번째가 2번쨰로 바뀌었으니
         // 다음으로 넘어가면 원래 위치에서 2번 건너뛴것과 같다.
         head = head->next;
-        
-        if (!head) {
-            connect->next = next;
-            return root;
-        }
-            
-        connect = connect->next;
+        while(connect->next != head)
+            connect = connect->next;
     }
     
     return root;
@@ -88,6 +77,8 @@ ListNode *swapPairs(ListNode *head)
 int main() {
     ListNode *head = new ListNode(1);
     addNode(head, 2);
+    addNode(head, 3);
+    addNode(head, 4);
 
     head = swapPairs(head);
     return 0;
