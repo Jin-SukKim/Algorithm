@@ -69,15 +69,6 @@ ListNode* reverseBetween(ListNode* head, int left, int right) {
 
     return root->next;
 }
-/*
-if (end->next == nullptr)
-        {
-            end->next = reverse;
-            root = temp;
-            break;
-        }
-*/
-
         
 int main() {
     ListNode *head = new ListNode(1);
