@@ -43,40 +43,46 @@ void addNode(ListNode *head, int val)
 }
 
 ListNode* reverseBetween(ListNode* head, int left, int right) {
-    ListNode* root = head;
-
     if (head == nullptr || left == right)
         return head;
 
-    for (int i = 1; i < left-1; ++i)
-    {
-        head = head->next;
-    }
-
     // 시작 node와 끝 node 자체는 바뀌지 않으나 next로 연결되는 node가 바뀐다.
-    // reverse list node의 시작위치
-    ListNode* reverse = head;
-    // 끝위치
-    ListNode* end = reverse->next;
-    ListNode* temp = new ListNode();
+    // rev : reverse list node의 시작위치, end : 끝위치
+    ListNode* root = new ListNode(), *rev = root, *end;
+    root->next = head;
 
-    for (int i = left; i < right; ++i)
+    for (int i = 0; i < left-1; i++)
     {
-        temp = reverse->next;
-        reverse->next = end->next;
+        rev = rev->next;
+    }
+        
+    end = rev->next;
+    ListNode* temp = nullptr;
+
+    for (int i = 0; i < right - left; i++)
+    {
+        temp = rev->next;
+        rev->next = end->next;
         end->next = end->next->next;
-        reverse->next->next = temp;
+        rev->next->next = temp;
     }
 
-    temp = nullptr;
-    delete temp;
-    return root;
+    return root->next;
 }
+/*
+if (end->next == nullptr)
+        {
+            end->next = reverse;
+            root = temp;
+            break;
+        }
+*/
 
-
+        
 int main() {
     ListNode *head = new ListNode(1);
     addNode(head, 2);
+    addNode(head, 3);
 
     head = reverseBetween(head, 1, 2);
     return 0;
