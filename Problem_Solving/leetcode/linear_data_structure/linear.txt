@@ -14,3 +14,11 @@ list, stack, queue linked-list 등이 모두 선형 자료구조에 속한다.
 배열 : queue 
 연결리스트 : stack
 등으로 보통 이루어져 있다.
+
+Stack은 LIFO(Last-In-First-Out), queue는 FIFO(First-In-First-Out)이다.
+
+Stack의 주요 연산
+
+1. push() : Stack에 element 추가
+2. pop() : 가장 최근에 삽입된 element 제거
+
