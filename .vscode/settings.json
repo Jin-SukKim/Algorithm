@@ -55,6 +55,7 @@
         "set": "cpp",
         "unordered_map": "cpp",
         "xlocinfo": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "queue": "cpp"
     }
 }
