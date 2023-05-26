@@ -40,6 +40,8 @@
         - 0 <= value <= 1000
         - At most 2000 calls will be made to insertFront, insertLast, deleteFront, deleteLast, getFront, getRear, isEmpty, isFull.
 */
+
+// 이중 연결 리스트를 사용했지만 원형의 이점을 살리려면 배열을 사용해야된다.
 #include <iostream>
 class ListNode{
 public:
