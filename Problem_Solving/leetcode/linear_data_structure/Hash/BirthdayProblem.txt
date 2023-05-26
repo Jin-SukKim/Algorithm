@@ -1,0 +1,37 @@
+생일 문제(충돌 발생)
+
+생일은 365개이므로 여러 사람이 모였을 때 생일이 같은 2명이 존재할 확률은 
+비둘기집 원리(Pigeonhole Principle)에 따라 366명 이상이 모여야 일어나는 일 같다.
+하지만 실제로는 23명만 모여도 50%를 넘고, 57명이 모이면 90%를 넘는다.
+
+일반적인 상식에 반하지만 컴퓨터 실험을 통해 증명하면 어렵지 않게 증명할 수 있다.
+이러한 증명 방식은 4색 정리(인접한 나라끼리 서로 다른 색을 칠하려면 4가지 색이면 충분하다) 등이 있다.
+1970년대에도 고작 1936개의 모델을 계산하는데 2대의 컴퓨터로 50일이 넘게 걸려 증명했다.
+
+지금은 더 쉽게 확률을 계산해낼 수 있다.
+이런 기법을 '해커를 위한 통계학(Statistics for Hackers)'라 불리기도 한다.
+
+Birthday Problem(python)
+
+import random
+
+TRIALS = 100000     # 10만번 실험
+same_birthdays = 0  # 생일이 같은 실험의 수
+
+# 실험 진행
+for _ in range(TRIALS):
+    birthdays = []
+    # 23명이 모였을 떄, 생일이 같을 경우 same_birthdays += 1
+    for i in range(23):
+        birthday = random.randint(1, 365)
+        if birthday in birthdays:
+            same_birthdays += 1
+            break
+        birthdays.append(birthday)
+
+# 전체 10만번 실험 중 생일이같은 실험의 확률
+print(f'{same_birthdays / TRIALS * 100}%')
+# 50.7%
+
+같은 생일이 나올 확률은 50.7%가 나온다.
+즉, 일반적인 상식(잘못된)과는 달리, 충돌은 매우 쉽게 일어나므로 최소화하는 일이 매우 중요하다.
