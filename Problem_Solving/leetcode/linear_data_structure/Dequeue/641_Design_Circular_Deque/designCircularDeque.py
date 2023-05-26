@@ -1,3 +1,9 @@
+class ListNode:
+    def __init__(self, val, l = None, r = None):
+        self.val = val
+        self.l = l
+        self.r = r
+        
 class MyCircularDeque:
     def __init__(self, k: int):
         # 왼쪽, 오른쪽 인덱스 역할
@@ -11,12 +17,13 @@ class MyCircularDeque:
     def _add(self, node: ListNode, new: ListNode):
         n = node.right
         node.right = new
-        node.left, new.right = node, n
+        new.left, new.right = node, n
         n.left = new
         
     def _del(self, node: ListNode):
         n = node.right.right
-        node.right = n.left = node
+        node.right = n
+        n.left = node
         
     # 앞쪽에 노드를 추가
     def insertFront(self, value: int) -> bool:

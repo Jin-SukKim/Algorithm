@@ -40,43 +40,107 @@
         - 0 <= value <= 1000
         - At most 2000 calls will be made to insertFront, insertLast, deleteFront, deleteLast, getFront, getRear, isEmpty, isFull.
 */
+#include <iostream>
+class ListNode{
+public:
+    ListNode(int k, ListNode* left = nullptr, ListNode* right = nullptr) {
+        val = k;
+        this->left = left;
+        this->right = right;
+    }
+
+    ~ListNode()
+    {
+        delete left;
+        delete right;
+    }
+
+    ListNode* left;
+    ListNode* right;
+    int val;
+};
+
 class MyCircularDeque {
 public:
     MyCircularDeque(int k) {
-        
+        // 왼쪽, 오른쪽 index 역할
+        head = new ListNode(0);
+        tail = new ListNode(0);
+        // 최대 길이
+        max = k;
+        // 현재 길이
+        len = 0;
+        head->right = tail;
+        tail->left = head;
     }
     
+    void add(ListNode* node, ListNode* n) {
+        ListNode* temp = node->right;
+        node->right = n;
+        n->left = node;
+        n->right = temp;
+        temp->left = n;
+    }
+
+    void del(ListNode* node) {
+        ListNode* temp = node->right->right;
+        node->right = temp;
+        temp->left = node;
+    }
+
+    // 앞쪽에 노드 추가
     bool insertFront(int value) {
-        
+        if (len == max)
+            return false;
+        len++;
+        add(head, new ListNode(value));
+        return true;
     }
     
     bool insertLast(int value) {
-        
+        if (len == max)
+            return false;
+        len++;
+        add(tail->left, new ListNode(value));
+        return true;
     }
     
     bool deleteFront() {
-        
+        if (len == 0)
+            return false;
+        len--;
+        del(head);
+        return true;
     }
     
     bool deleteLast() {
-        
+        if (len == 0)
+            return false;
+        len--;
+        del(tail->left->left);
+        return true;
     }
     
     int getFront() {
-        
+        return len ? head->right->val : -1;
     }
     
     int getRear() {
-        
+        return len ? tail->left->val : -1;
     }
     
     bool isEmpty() {
-        
+        return !len;
     }
     
     bool isFull() {
-        
+        return len == max;
     }
+
+private:
+    ListNode* head;
+    ListNode* tail;
+    int max, len;
 };
 
 /**
@@ -91,3 +155,18 @@ public:
  * bool param_7 = obj->isEmpty();
  * bool param_8 = obj->isFull();
  */
+int main() {
+    MyCircularDeque* obj = new MyCircularDeque(5);
+    std::cout << obj->insertFront(5) << std::endl;
+    std::cout << obj->insertLast(0) << std::endl;
+    std::cout << obj->getFront() << std::endl;
+    std::cout << obj->insertLast(3) << std::endl;
+    std::cout << obj->getFront() << std::endl;
+    std::cout << obj->insertFront(9) << std::endl;
+    std::cout << obj->getRear() << std::endl;
+    std::cout << obj->getFront() << std::endl;
+    std::cout << obj->getFront() << std::endl;
+    std::cout << obj->deleteLast() << std::endl;
+    std::cout << obj->getRear() << std::endl;
+    return 0;
+}
