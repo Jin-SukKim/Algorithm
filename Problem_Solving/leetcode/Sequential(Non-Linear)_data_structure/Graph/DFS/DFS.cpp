@@ -3,7 +3,7 @@
 #include <stack>
 // 재귀방식
 // parameters : vertex, graph 2d-array, int array
-std::vector<int> recursive_dfs(int v, std::vector<std::vector<int>> graph, std::vector<int> visited = {})
+std::vector<int> recursive_dfs(int v, std::vector<std::vector<int>>& graph, std::vector<int>& visited = {})
 {
     // 방문했던 vertex
     visited.push_back(v);
@@ -18,7 +18,7 @@ std::vector<int> recursive_dfs(int v, std::vector<std::vector<int>> graph, std::
 }
 
 // 스택을 이용한 반복 구조
-std::vector<int> iterative_dfs(int v, std::vector<std::vector<int>> graph)
+std::vector<int> iterative_dfs(int v, std::vector<std::vector<int>>& graph)
 {
     std::vector<int> visited;
     std::stack<int> stack;

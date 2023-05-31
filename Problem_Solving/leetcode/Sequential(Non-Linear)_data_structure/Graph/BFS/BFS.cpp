@@ -2,7 +2,7 @@
 #include <queue>
 
 // 큐를 이용한 반복구조
-std::vector<int> iterative_bfs(int v, std::vector<std::vector<int>> graph)
+std::vector<int> iterative_bfs(int v, std::vector<std::vector<int>>& graph)
 {
     std::vector<int> visited = {v};
     std::queue<int> queue;
