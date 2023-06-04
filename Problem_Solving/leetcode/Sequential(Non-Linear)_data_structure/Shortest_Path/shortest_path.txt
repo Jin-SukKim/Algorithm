@@ -28,3 +28,28 @@ Dijkstra 알고리즘은 음수인 가중치를 사용하지 못한다.
 Dijkstra 알고리즘 최초 구현에는 시간 복잡도가 O(V^2)이나 현재는 BFS 사용시
 가장 가까운 순서를찾을 때 Priority-Queue를 적용해 시간복잡도가 O((V+E)log V),
 모든 정점이 출발지에서 도달이 가능하다면 최종적으로 O(E log V)가 된다.
+
+Dijkstra 알고리즘 수도코드 (우선순위 큐를 적용하는 방식)
+
+function Dijkstra(Graph, source):
+    dist[source] <- 0
+
+    create vertex priority queue Queue를
+    
+    for each vertex v in Graph:
+        if v != source
+            dist[v] <- INFINITY
+            prev[v] <- UNDEFINED
+
+        # 각 정점과 거리를 우선순위 큐에 삽입
+        Q.add_with_priority(v, dist[v])
+
+    while Q is not empty:
+        # 우선순위 큐에서 최소 값 추출을 통해 이웃을 살펴보기
+        u <- Q.extract_min()
+        for each neighbor v of u:
+            alt <- dist[u] + length(u, v)
+            if alt < dist[v]
+                dist[v] <- alt
+                prev[v] <- u
+                Q.decrease_priority(v, alt)
