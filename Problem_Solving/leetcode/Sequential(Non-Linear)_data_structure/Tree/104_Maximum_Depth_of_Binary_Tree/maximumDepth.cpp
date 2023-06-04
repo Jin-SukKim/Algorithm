@@ -63,6 +63,7 @@ int maxDepth(TreeNode *root)
             top = q.front();
             q.pop();
 
+            // 자식 노드가 있는지 확인 후 삽입
             if (top->left)
                 q.push(top->left);
             if (top->right)
