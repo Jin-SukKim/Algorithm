@@ -39,7 +39,6 @@ struct TreeNode
 class Solution
 {
 public:
-    int depth = 0;
     int getDepth(TreeNode *node, int& depth)
     {
         if (node == nullptr)
