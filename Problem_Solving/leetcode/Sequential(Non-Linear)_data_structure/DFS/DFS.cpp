@@ -26,6 +26,7 @@ std::vector<int> iterative_dfs(int v, std::vector<std::vector<int>>& graph)
     while(!stack.empty())
     {
         int v = stack.top();
+        stack.pop();
         if (std::find(visited.begin(), visited.end(), v) == visited.end())
         {
             visited.push_back(v);
