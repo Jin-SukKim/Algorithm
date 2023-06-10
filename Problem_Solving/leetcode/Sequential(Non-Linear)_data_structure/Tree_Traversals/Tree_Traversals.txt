@@ -1,0 +1,67 @@
+트리 순회(Tree Traversals)
+
+트리 순회란 그래프 순회의 한 형태로 트리 자료구조에서 각 노드를
+정확히 한 번 방문하는 과정을 말한다.
+
+그래프 순회와 마찬가지로 DFS 또는 BFS로 탐색하는데,
+특히 이진 트리에서 DFS는 노드의 방문 순서에 따라 크게 3가지 방식으로 구분된다.
+
+1. 전위(Pre-Order) 순회(NLR)
+2. 중위(In-Order) 순회(LNR)
+3. 후위(Post-Order) 순회(LRN)
+
+순회 방식의 영문 두문자어를 구성하는 3가지 문자들의 의미
+
+L : 현재 노드의 왼쪽 서브트리
+R : 현재 노드의 오른쪽 서브트리
+N : 현재 노드 자신
+
+즉, 전위 순회(NLR)는 현재 노드 -> 왼쪽 서브트리 -> 오른쪽 서브트리 순으로 순회한다.
+중위는 왼쪽 서브트리 -> 현재 노드 -> 오른쪽 서브트리
+후위는 왼쪽 서브트리 -> 오른쪽 서브트리 -> 현재 노드를 순회한다.
+
+트리의 순회 방식은 재귀 또는 반복, 모두 구현이 가능하지만 트리의 재귀적 속성으로
+인해 재귀 쪽이 훨씬 더 구현이 간단하다.
+
+전위 순회의 재귀 구현 수도코드
+
+preorder(node)
+    if (node == null)
+        return
+    visit(node)
+    preorder(node.left)
+    preorder(node.right)
+
+전위 순회의 반복 구현 수도코드
+
+iterativePreorder(node)
+    if (node == null)
+        return
+    s <- empty stack
+    s.push(node)
+    while (not s.isEmpty())
+        node <- s.pop()
+        visit(node)
+
+        if node.right != null
+            s.push(node.right)
+        if node.left != null
+            s.push(node.left)
+
+중위 순회 재귀 수도코드
+
+inorder(node)
+    if (node == null)
+        return
+    inorder(node.left)
+    visit(node)
+    inorder(node.right)
+
+후위 순회 재귀 수도코드
+
+postorder(node)
+    if (node == null)
+        return
+    postorder(node.left)
+    postorder(node.right)
+    visit(node)

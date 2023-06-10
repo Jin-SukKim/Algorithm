@@ -42,6 +42,7 @@ public:
     int prev = -1;
     int res = INT_MAX;
 
+    // 중위(In-Order) 순회
     int minDiffInBST(TreeNode *root)
     {
         if (root->left)
