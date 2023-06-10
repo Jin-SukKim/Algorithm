@@ -23,6 +23,18 @@ N : 현재 노드 자신
 트리의 순회 방식은 재귀 또는 반복, 모두 구현이 가능하지만 트리의 재귀적 속성으로
 인해 재귀 쪽이 훨씬 더 구현이 간단하다.
 
+root : F
+
+트리 : 
+    F -> B, G
+    왼쪽 서브트리
+    B -> A, D
+    D -> C, E
+    오른쪽 서브트리
+    G -> I
+    I -> H
+
+
 전위 순회의 재귀 구현 수도코드
 
 preorder(node)
@@ -48,6 +60,8 @@ iterativePreorder(node)
         if node.left != null
             s.push(node.left)
 
+전위 순회 결과 : F, B, A, D, C, E, G, I, H
+
 중위 순회 재귀 수도코드
 
 inorder(node)
@@ -57,6 +71,8 @@ inorder(node)
     visit(node)
     inorder(node.right)
 
+중위 순회 결과 : A, B, C, D, E, F, G, H, I
+
 후위 순회 재귀 수도코드
 
 postorder(node)
@@ -65,3 +81,5 @@ postorder(node)
     postorder(node.left)
     postorder(node.right)
     visit(node)
+
+후위순회 결과 : A, C, E, D, B, H, I, G, F
