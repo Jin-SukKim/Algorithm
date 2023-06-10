@@ -19,6 +19,8 @@ class Solution
 public:
     /*
         BST의 왼쪽 자식은 항상 루트보다 작고, 오른쪽 자식은 항상 루트보다 크다.
+        BST는 정렬된 트리이기에 바로 이전의 노드 값과 비교해 비교한 값 중
+        차이가 제일 작은 값이 정답이 된다.
     */
     int minDiffInBST(TreeNode *root)
     {
