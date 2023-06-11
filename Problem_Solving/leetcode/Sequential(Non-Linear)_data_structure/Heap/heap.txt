@@ -1,0 +1,176 @@
+힙(Heap)
+
+힙은 힙의 특성(최소 힙, Min Heap에서는 부모가 항상 자식보다 작거나 같다)을
+만족하는 거의 완전한 트리(Almost Complete Tree)인 특수한 트리 기반의 자료구조다.
+
+힙은 트리 기반의 자료구조다.
+
+최소 힙(Min Heap)은 부모가 항상 자식보다 작기 때문에  루트가 결국
+가장 작은 값을 갖게 되며, 우선순위 큐에서 가장 작은 값을 추출하는 것은
+매번 힙의 루트를 가져오는 형태로 구현된다.
+
+기반 구현을 살펴보볌ㄴ 우선순위 큐 ADT(추상 자료형)는 주로 힙으로 구현하고,
+힙은 주로 배열로 구현한다.
+따라서 우선순위 큐는 결국은 배열로 구현하는 셈이 된다.
+
+하지만 힙은 정렬된 구조가 아니다.
+최소 힙읜 경우 부모 노드가 항상 작다는 조건만 만족할 뿐,
+서로 정렬되어 있지 않다.
+
+ex: 오른쪽의 자식 노드가 레벨 차이에도 불구하고 왼쪽 노드보다 더 작은 경우도
+얼마든지 있다.
+
+부모, 자식 간의 관계만 정의할 뿐, 좌우에 대한 관계는 정의하지 않기 때문이다.
+
+힙 자료구조는 결국 힙 정렬의 부산물인데 힙은 완전 이진 트리이기에
+배열에 순서대로 표현하기에 적합하다.
+
+만약 이진 힙을 배열로 표현해 루트부터 차례대로 나열하면
+1, 2, 4 ... 순서대로 각 레벨의 노드가 2배씩 증가하는 형태로 배열에 나열할 수 있다.
+
+최대 이진 힙의 배열 표현
+ex: null, 16, 14, 10, 8, 7, 9, 3, 2, 4, 1
+16 -> 14, 10
+14 -> 8, 7
+10 -> 9, 3
+
+힙은 항상 균형을 유지하는 특징 때문에 다양한 분야에 널리 활용된다.
+대표적으로 우선순위 큐뿐만 아니라 다익스트라 알고리즘에도 사용된다.
+힙으로 다익스트라 알고리즘의 시간 복잡도를 줄일수 있다.
+
+이외에도 힙 정렬, 최소 신장 트리(Minimum SPanning Tree)를 구현하는
+프림 알고리즘(Prim's Algorithm), 중앙값의 근사값(Approximation)을
+빠르게 구하는 등에 사용된다.
+
+부모, 자식 관계가 정의되어 있는 완전 이진 트리이기에 적절히 중간 레벨의 노드를
+추출하면 중앙값에 가까운 값을 정확하지는 않지만 근사치로 빠르게 추출 가능하다.
+
+
+힙 연산
+
+파이썬의 최소 힙 연산을 위한 클래스 정의
+class BinaryHeap(object):
+    def __init__(self):
+        self.items = [None] # 인덱스 0을 사용하지 않기 위해 None 설정
+
+    def __len__(self):  # 인덱스 1부터 사용해서 길이 - 1
+        return len(self.items) - 1
+
+삽입
+
+힙에 요소를 삽입하기 위해선 Up-Heap 연산을 수행해야 된다.
+
+1. 요소를 가장 하위 레벨의 최대한 왼쪽으로 삽입한다
+    (배열로 표현할 경우 가장 마지막에 삽입한다.)
+
+2. 부모 값과 비교해 값이 더 작은 경우 위치를 변경한다.
+
+3. 계속해서 부모 값과 비교해 위치를 변경한다
+    (가장 작은 값일 경우 루트까지 올라간다.)
+
+시간 복잡도 O(log n), parent를 i // 2로 약 절반씩 줄여나가는 형태이므로
+def _percolate_up(self):
+    i = len(self)
+    parent = i // 2 # 각 레벨의 노드는 2배씩 차이난다.
+    while parent > 0:
+        if self.items[i] < self.items[parent]:
+            # 부모 값보다 작으면 위치 변경
+            self.items[parent], self.items[i] = \
+                self.items[i], self.items[parent]
+            i = parent
+            parent = i // 2
+
+def insert(self, k):
+    # 맨 마지막에 삽입한 뒤 
+    self.items.append(k)
+    # 정렬
+    self._percolate_up()
+
+추출
+
+추출은 루트를 추출하면 된다.
+하지만 추출 이후에 다시 힙의 특성을 유지하는 작업이 필요해 시간 복잡도는 O(log n)이다.
+
+1. 최소값 제거
+
+2. 비어있는 루트에 가장 마지막 요소가 올라간다.
+
+3. 반대로 자식 노드와 값을 비교해 자식보다 크면 내려가는 Down-Heap 연산을 수행한다.
+
+이진 힙의 추출 과정 수도코드
+
+# 인덱스가 1 이상일 떄만 동작하도록 구현
+Max-Heapify(A, i):
+    left <- 2xi
+    right <- 2xi + 1
+    largest <- i
+
+    if left <= heap_length[A] and A[left] > A[largest] then:
+        largest <- left
+
+    if right <= heap_length[A] and A[right] > A[largest] then:
+        largest <- right
+
+    if largest != i then:
+        swap A[i] and A[largest]
+        Max-Heapify(A, largest)
+
+이진 힙에서 인덱스를 1부터 시작하는 경우 부모, 자식 노드의 인덱스를 계산하기 편하다
+깔끔한 계산을 위해 인덱스 0보단 1에서 시작한다.
+
+이진 힙의 인덱스 위치 계산 수도코드
+Parent(i)
+    return ceil((i - 1) / 2)
+
+Left(i)
+    return 2i
+
+Right(i)
+    return 2i + 1
+
+파이썬의 최소힙 추출 코드
+def _percolate_down(self, idx):
+    left = idx * 2
+    right = idx * 2 + 1
+    smallest = idx
+
+    # 최소힙이기에 각각 왼쪽과 오른쪽 자식을 비교하고 더 작하면 해당 인덱스로 교쳬
+    if left <= len(self) and self.items[left] < self.items[smallest]:
+        smallest = left
+
+    if right <= len(self) and self.items[right] < self.items[smallest]:
+        smallest = right
+    
+    # 인덱스가 교체됬다면 서로 값을 스왑하고 다시 재귀 호출
+    if smallest != idx:
+        self.items[idx], self.items[smallest] = \
+            self.items[smallest], self.items[idx]
+        self._percolate_down(smallest)
+
+def extract(self)
+    // 루트 추출
+    extracted = self.items[1]
+    // 마지막 요소를 루트로 올려준다.
+    self.items[1] = self.items[len(self)]
+    self.items.pop()
+    // 다시 정렬
+    self._percolate_down(1)
+    return extracted
+
+
+이진 힙과 이진 탐색 트리(BST)의 차이점
+
+가장 직관적인 차이점은 힙은 상/하 관계를 보장하며, 특히 최소 힙에서는
+부모가 항상 자식보다 작다.
+
+반면 BST는 좌/우 관계를 보장한다.
+BST에서 부모는 왼쪽 자시보다 크며, 오른쪽 자식은 작거나 같다.
+이 특징으로 BST는 탐색과 삽입 모두 O(log n)에 가능하며, 
+모든 값이 정렬되어야 할 때 사용한다.
+
+반면 가장 큰 값을 추출하거나(최대 힙), 가장 작은 값을 추출하려면(최소 힙)
+이진 힙을 사용해야 한다.
+이진 힙은 이 작업이 O(1)에 가능하다.
+
+우선순위와 연관되어 있으며 이진 힙은 우선순위 큐에 활용된다.
+
