@@ -1,8 +1,11 @@
 # 트라이를 저장할 노드
+import collections
+
+
 class TrieNode:
     def __init__(self):
         self.word = False
-        self.children = {}
+        self.children = collections.defaultdict(TrieNode)
 
 
 class Trie:
@@ -14,8 +17,6 @@ class Trie:
         node = self.root
         # 루트부터 자식 노드가 깊어지며 문자 단위의 다진 트리(m-ary Tree) 형태 생성
         for char in word:
-            if char not in node.children:
-                node.children[char] = TrieNode()
             node = node.children[char]
         # 다음 문자를 키로 하는 자식 노드 형태로 단어가 완성되야 True가 된다.
         node.word = True

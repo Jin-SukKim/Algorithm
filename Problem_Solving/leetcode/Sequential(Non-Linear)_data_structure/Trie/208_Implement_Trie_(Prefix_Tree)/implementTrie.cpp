@@ -46,6 +46,7 @@ public:
 
     TrieNode() {
         is_word = false;
+        // 벡터나 맵을 사용하면 코드를 줄일 수 있을 것 같다.
         for (int i = 0; i < 26; i++)
             children[i] = NULL;
     };
