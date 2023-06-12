@@ -1,0 +1,153 @@
+Sorting(정렬)
+
+정렬 알고리즘은 목록의 요소를 특정 순서대로 넣는 알고리즘이다.
+대개 숫자식 순서(Numerical Order)와 사전식 순서(Lexicographical Order)로 정렬한다.
+
+정렬은 컴퓨터과학 초기에 많은 연구가 필요한 주제 중 하나였는데
+빅오, 분할 정복, 힙, 이진 트리, 시간과 공간의 트레이드오프(Time-Space Tradeoffs)
+등 여러 가지 컴퓨터 과학의 핵심 주제를 아우르기에 알고리즘 입문에 매우 좋다.
+
+정렬은 알고리즘에서 매우 중요한데 이 바탕을 구성하는 논리는
+다른 코딩을 공부하는데 많은 도움이 된다.
+
+버블 정렬
+
+Bubblesort(A)
+    for i from 1 to A.length
+        for j from 0 to A.length - 1
+            if A[j] > A[j + 1]
+                swap a[j] with a[j + 1]
+
+버블 정렬 알고리즘은 n번의 라운드로 이뤄져 있으며, 
+각 라운드마다 배열의 아이쳄을 한 번씩 쭉 모두 살펴본다.
+
+연달아 있는 아이템 2개의 순서가 잘못되어 있으면, 두 아이템을 맞바꾼다.
+
+배열 전체를 쭉 살펴보는 것을 n번 하기에 시간 복잡도는 항상 O(n^2)이다.
+그래서 버블 정렬은 비효율적이며 구현 가능한 가장 느린 정렬 알고리즘이다.
+
+
+병합 정렬(Merge Sort)
+
+아 정렬은 컴퓨터 과학 역사상 최고의 천재라 불리는 존 폰 노이만이 고안한 
+알고리즘으로 분할 정복(Divide and Conquear)의 진수를 보여주는 알고리즘이다.
+
+최선과 최악 모두 O(n log n)인 사실상 완전한 O(n log n)으로 일정한 알고리즘이며,
+대부분의 경우 퀵 정렬보다는 느리지만 일정한 실행 속도뿐만 아니라
+무엇보다도 안정 정렬(Stable Sort)라는 점에서 여전히 상용 라이브러이에 많이 쓰인다.
+
+분할 정복으로 일정하게 정렬이 이뤄지는 병합 정렬의 특징을 병합 정렬 도식화를 보면 확인할 수 있다.
+ex:
+    [38, 27, 43, 3, 9, 82, 10]인 입력값은 [38, 27, 43, 3]과 [9, 82, 10]
+    로 두 부분으로 분할, 다시 [38, 27],[43, 3],[9, 82],[10]로 네 부분으로
+    분할 등의 방식으로 각각 더 이상 쪼갤 수 없을 때까지 계속해서 분할한 후,
+    분할이 끝나면 정렬하면서 정복해 나간다.
+    
+
+
+퀵 정렬(Quick Sort)
+
+이 정렬은 영국의 커뮤터과학자 토니 호어가 고안한 알고리즘으로,
+피벗(Pivot)을 기준으로 좌우를 나누는 특징 때문에 파티션 교환 정렬
+(Partition-Exchange Sort)라고도 불린다.
+
+Merge Sort와 마찬가지로 분할 정복 알고리즘이며 여기에 Pivot 개념을
+통해 Pivot보다 작으면 왼쪽, 크면 올ㄴ쪽과같은 방식으로 파티셔닝(Partitioning)
+하면서 쪼개나간다.
+
+여러 가지 변형과 개선 버전이 있는데 일단 N. 로무토가 구현한
+파티션 계획(Parition Scheme)을 살펴본다.
+
+로무토 파티션이란 항상 맨 오른쪽의 Pivot을 택하는 단순한 방식으로,
+최초의 퀵 정렬 알고리즘보다도 더 간결하고 이해하기 쉽기에 입문에 좋고,
+가장 기본적인 방식이다.
+
+퀵 정렬 수도코드
+
+Quicksort(A, lo, hi)
+    if lo < hi then
+        pivot := Partition(A, lo, hi)
+        Quicksort(A, lo, pivot - 1)
+        Quicksort(A, pivot + 1, hi)
+
+퀵 정렬의 메인 함수에서부터 시작한다.
+파티션을 나누고 각각 재귀 호출하는 전형적인 분할 정복 구조다.
+
+파이썬 버전
+def quicksort(A, log, hi):
+...
+    if lo < hi:
+        pivot = partition(lo, hi)
+        quicksort(A, lo, pivot - 1)
+        quicksort(A, pivot + 1, hi)
+
+파티션을 나누는 수도코드
+
+partition(A, lo, hi)
+    pivot := A[hi]
+    i := lo
+    for j := lo to hi do
+        if A[j] < pivot then
+            swap A[i] when A[j]
+            i := i + 1
+    swap A[i] with A[hi]
+    return i
+
+파이썬 버전
+def partition(lo, hi):
+    pivot = A[hi] # 로무토 파티션은 맨 오른쪽을 피벗으로 정한다
+    # pivot을 기준으로 2개의 포인터가 이동
+    left = lo
+    for right in range(lo, hi):
+        # 오른쪽 포인터의 값이 pivot보다 작다면 서로 스왑
+        if A[right] < pivot:
+            A[left], A[right] = A[right], A[left]
+            left += 1
+    A[left], A[hi] = A[hi], A[left]
+    return left
+
+partition() 함수에서 오른쪽 포인터가 끝에 도달할 때 배열을 확인해 보면 
+pivot 값을 기준으로 pivot 값 미만인 값(작은)은 왼쪽으로, 
+pivot 값 이상(큰)인 값은 오른쪽에 위치하게 된다.
+그리고 왼쪽 포인터의 위치로 피벗 아이템이 이동한다.
+마지막으로 pivot까지 이동하면 pivot값이 중안 근처에 있을테고
+왼쪽에 작은 값이, 오른쪽에 큰값이 분활되어 있을 것이다.
+
+이렇게 계속 분할하면서 정복을 진행해 코드 기준 lo < hi를 만족하지 않을때까지,
+즉 서로 위치가 역전할 때까지 계속 재귀로 반복하며 정렬해준다.
+
+파이썬의 중첩 함수를 이용해 구현한 퀵 정렬
+
+def quicksort(A, lo, hi):
+    def partition(lo, hi):
+        pivot = A[hi]
+        left = lo
+        for right in range(lo, hi):
+            if A[right] < pivot:
+                A[left], A[right] = A[right], A[left]
+                left += 1
+        A[left], A[hi] = A[hi], A[left]
+        return left
+
+    if lo < hi:
+        # 맨 우측 값인 pivot이 조금 정렬되 중앙으로 이동
+        pivot = partition(lo, hi)
+        # pivot을 중심으로 왼쪽 sub배열 
+        quicksort(A, lo, pivot - 1)
+        # pivot을 중심으로 오른쪽 sub배열
+        quicksort(A, pivot + 1, hi)
+
+퀵 정렬은 매우 빠르며 효육적인 알고리즘이나 최악의 경우 O(n^2)가 된다.
+
+이미 정렬된 배열이 입력값이면 pivot이 계속 오른쪽에 위치해 파티셔닝이 전혀
+이뤄지지 않아 n번의 라운드에 걸쳐 전체를 비교해 버블 정렬과 다름없어 최악의 성능을 보인다.
+
+항상 일정한 성능을 보이는 병합 정렬과 달리, 퀵 정렬은 성능 편차가 심하다.
+하지만 pivot을 선택하는 알고리즘을 개선해 퀵 정렬을 좀 더 최적화하는 연구 결과가 많이 나와 있다.
+
+
+
+안정 정렬(Stable Sort) vs 불안정 정렬
+
+안정 정렬(Stable Sort) 알고리즘은 중복된 값을 입력 순서와 동일하게 정렬한다.
+
