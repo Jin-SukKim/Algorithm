@@ -109,9 +109,19 @@ public:
         TrieNode *node = root;
 
         //  탐색 중간에 word_id가 있고 나머지 문자가 팰린드롬인 경우
+        /*
+            입력 단어를 문자별로 확인하다 해당 노드의 word_id가 -1이 아니면
+            나머지 문자가 팰린드롬이라면 팰린드롬
+
+            ex)
+                dcbc + d인 경우 입력값 dcbc를 확인하는데 d의 word_id가
+                -1이 아닌것을 확인하고 나머지 cbc가 팰린드롬인지 확인한다.
+        */
         while (!word.empty())
         {
             if (node->word_id >= 0)
+                // 만약 bbcd가 있을때 bb가 팰린드롬이므로 b,c에 팰린드롬 인덱스를 저장
+                // cbbc는 단어자체가 팰린들모이므로 루트에 팰린드롬 인덱스 저장
                 if (is_palindrome(word))
                     results.push_back({index, node->word_id});
 
@@ -122,11 +132,15 @@ public:
             word = word.substr(1, word.length());
         }
 
-        // 끝까지 탐색했을 때 word_id가 있는 경우
+        // 끝까지 탐색했을 때 마지막 노드에 word_id가 있는 경우
+        // 즉 단어 abc를 검색하면 트라이 cba의 마지막 노드엔 word_id가 있을 것이다.
         if (node->word_id >= 0 && node->word_id != index)
             results.push_back({index, node->word_id});
 
         // 끝까지 탐색했을 때 palindrome_word_ids가 있는 경우
+        /*
+            abc 단어를 검색했는데 ???cba라면 ???가 팰린드롬이면 팰린드롬이다.
+        */
         for (int palindrome_word_id : node->palindrome_word_ids)
             results.push_back({index, palindrome_word_id});
 
