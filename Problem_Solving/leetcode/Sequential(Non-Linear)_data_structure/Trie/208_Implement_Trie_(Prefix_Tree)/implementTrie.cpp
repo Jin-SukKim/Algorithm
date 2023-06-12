@@ -43,6 +43,8 @@ public:
     bool is_word;
     // 다진 트리(m-ary Tree) 형태
     TrieNode* children[26]; // 알파벳 개수
+    //map<char, Trie*> children; 맵을 이용하는 경우
+   	//vector<pair<char, Trie*>> children; 벡터를 이용하는 경우
 
     TrieNode() {
         is_word = false;
@@ -50,6 +52,15 @@ public:
         for (int i = 0; i < 26; i++)
             children[i] = NULL;
     };
+
+    ~TrieNode()
+    {
+        for (int i = 0; i < 26; i++)
+        {
+            if (children[i])
+                delete children[i];
+        }
+    }
 };
 class Trie
 {
