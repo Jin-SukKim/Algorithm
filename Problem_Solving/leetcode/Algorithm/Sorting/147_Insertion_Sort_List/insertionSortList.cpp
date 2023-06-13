@@ -46,6 +46,8 @@ public:
 
         while (head)
         {
+            // 정렬된 리스트 cur와 정렬안된 head 노드를 비교해
+            // 스왑할 위치를 찾아 cur의 포인터를 옮겨준다.
             while (cur->next && cur->next->val < head->val)
                 cur = cur->next;
             
@@ -55,7 +57,9 @@ public:
             cur->next->next = temp;
 
             // 비교 조건 개선
-            // 다음번 head도 cur보다 큰 상태라면 굳이 돌아가지 않는다.
+            // 다음번 head도 cur보다 큰 상태라면 
+            // 어차피 지금 위치나 지금 위치보다 더 앞으로 가야하므로
+            // 굳이 맨 처음으로 돌아가지 않는다.
             if (head && cur->val > head->val)
                 // 다시 맨 처음부터 시작
                 cur = parent;
