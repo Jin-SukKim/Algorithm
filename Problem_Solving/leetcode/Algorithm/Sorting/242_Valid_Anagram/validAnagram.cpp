@@ -28,6 +28,10 @@
 class Solution {
 public:
     bool isAnagram(std::string s, std::string t) {
+        if (s.size() != t.size())
+            return false;
+        // sort() 함수를 사용하거나 list나 vector, 또는 맵을 사용해도 된다.
+        // vector[s[] - 'a']++; vector[t[] - 'a']--;
         std::sort(s.begin(), s.end());
         std::sort(t.begin(), t.end());
 
