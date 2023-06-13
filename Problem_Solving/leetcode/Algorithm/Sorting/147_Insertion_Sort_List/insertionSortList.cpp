@@ -41,5 +41,26 @@ class Solution
 public:
     ListNode *insertionSortList(ListNode *head)
     {
+        ListNode* cur = new ListNode();
+        ListNode* parent = cur;
+
+        while (head)
+        {
+            while (cur->next && cur->next->val < head->val)
+                cur = cur->next;
+            
+            ListNode* temp = cur->next;
+            cur->next = head;
+            head = head->next;
+            cur->next->next = temp;
+
+            // 비교 조건 개선
+            // 다음번 head도 cur보다 큰 상태라면 굳이 돌아가지 않는다.
+            if (head && cur->val > head->val)
+                // 다시 맨 처음부터 시작
+                cur = parent;
+        }
+
+        return parent->next;
     }
 };
