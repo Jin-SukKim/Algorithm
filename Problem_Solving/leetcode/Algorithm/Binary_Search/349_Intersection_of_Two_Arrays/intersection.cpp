@@ -40,6 +40,16 @@ public:
         return -1;
     }
 
+    // lower_bound() 함수를 활용한 이진 검색
+    int search2(std::vector<int>& nums, int& target)
+    {
+        auto first = std::lower_bound(nums.begin(), nums.end(), target);
+        if (first != nums.end())
+            if (target == *first)
+                return *first;
+        return -1;
+    }
+
     // brute-force는 O(n^2)가 걸리나 이진 검색을 활용하면 O(n log n)으로 줄일 수 있다.
     std::vector<int> intersection(std::vector<int>& nums1, std::vector<int>& nums2) {
         if (nums1.empty() || nums2.empty())
@@ -54,8 +64,13 @@ public:
         for (int n1 : nums1)
         {
             // 이진 검색으로 일치 여부 판별 O(log n)
-            int idx = search(nums2, n1);
+            /*
+            int idx = search2(nums2, n1);
             if (idx > -1 && nums2.size() > idx && n1 == nums2[idx])
+                results.insert(n1);
+            */
+            int n2 = search2(nums2, n1);
+            if (n2 > -1)
                 results.insert(n1);
         }
 
@@ -66,10 +81,10 @@ public:
 int main()
 {
     std::vector<int> nums1 = {
-        4,9,5
+        1,2,2,1
     };
     std::vector<int> nums2 = {
-        9,4,9,8,4
+        2,2
     };
     Solution s;
     s.intersection(nums1, nums2);
