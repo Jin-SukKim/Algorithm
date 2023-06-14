@@ -7,7 +7,7 @@ public:
 
         while (left <= right)
         {
-            int mid = (left + right) / 2;
+            int mid = left + (right - left) / 2;
 
             // 비교하는 값이 더 작아 왼쪽 배열은 비교할 필요가 없다.
             if (nums[mid] < target)

@@ -32,7 +32,8 @@ public:
         if (left <= right)
         {
             // 중간 값을 비교해 분할해나간다.
-            int mid = (left + right) / 2;
+            // overflow 에러를 방지하지 위해 left + right를 변경
+            int mid = left + (right - left) / 2;
 
             if (nums[mid] < target)
                 return binarySearch(nums, ++mid, right, target);
