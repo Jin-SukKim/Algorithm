@@ -1,0 +1,70 @@
+전가산기(Full Adder)
+
+가산기는 덧셈 연산을 해주는 장치다.
+
+전가산기는 자리 올림 수까지 포함하여 덧셈 연산을 수행한다.
+3개의 입력, 2개의 출력 구조로 두 입력값 외에 이전 연산에서 생긴 자리 올림 수(carry)까지
+더해준다.
+2개의 출력은 덧셈과 올림수(carry)로 이루어져 있다.
+
+전가산기 회로도는 ADN 게이트 2개, XOR 게이트 2개, OR 게이트 1개로 이뤄져 있다.
+각 게이트 위치에 중간값을 Q1, Q2, Q3로 표현하면 코드는 다음과 같다.
+
+입력값 A, B
+Q1 = A & B
+Q2 = A ^ B
+Q3 - Q2 & carry
+sum = carry ^ Q2
+carry = Q1 | Q3
+
+전가산기 전체 구현(파이썬)
+# 입력값은 32비트 정수로 가정
+def fullAdder(a: int, b: int) -> int:
+    # 전처리
+
+    # bitmask로 음수 처리를 위해 2의 보수로 만들어주는 역할
+    MASK = 0xFFFFFFFF
+    INT_MAX = 0x7FFFFFFF
+
+    # 정수를 이진수로 변경하면 0b 식별자가 붙는데 슬라이싱으로 떼낸 후
+    # AND 연산자로 masking 작업.
+    # 32비트 정수로 가정했기에 32비트 자릿수를 맞춰준다.
+    # 비어있는 앞자리는 모두 0을 채워준다.
+    a_bin = bin(a & MASK)[2:].zfill(32)
+    b_bin = bin(b & MASK)[2:].zfill(32)
+
+    result = []
+    carry = 0
+    sum = 0
+    # 32비트로 가정했으므로 32번 반복
+    for i in range(32):
+        # 낮은 자릿수부터 하나씩 전가산기를 통과하면서 결과를 채워나간다.
+        A = int(a_bin[31 - i])
+        B = int(b_bin[31 - i])
+
+        # 전가산기 구현
+        Q1 = A & B
+        Q2 = A ^ B
+        Q3 = Q2 & carry
+        sum = carry ^ Q2
+        carry - Q1 | Q3
+
+        result.append(str(sum))
+
+    # 마지막 반복 이후 아직 carry 값이 남았다면 자릿수가 하나 더올라간 것이므로
+    # 1을 더 추가한다.
+    # 이러면 최대 33비트가 되지만 마지막 masking 작업을 통해 이 값은 날라간다.
+    if carry == 1:
+        result.append('1')
+
+    # 초과 자릿수 처리(마지막 masking 작업)
+    # 낮은 자리수부터 채웠으므로 뒤집은 다음 십진수 정수로 바꿔준 후 masking 작업
+    result = int(''.join(result[::-1]), 2) & MASK
+
+    # 음수 처리 (2의 보수에서 음수는 최상위 비트가 1인 경우)
+    # 양수의 최대값이 0x7fffffff이므로 32번째 비트가 1이라면 이보다 큰 값이다.
+    if result > INT_MAX:
+        # masking 갑소가 XOR 한 뒤 NOT 처리를해서 다시 음수로 만들어준다.
+        result = ~(result ^ MASK)
+
+    return result
