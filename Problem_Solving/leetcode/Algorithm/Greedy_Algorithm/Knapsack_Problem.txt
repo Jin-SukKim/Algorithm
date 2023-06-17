@@ -1,0 +1,35 @@
+짐을 쪼갤 수 있는 분할 가능 배낭 문제
+
+이 경우 단가가 가장 높은 짐부터 차례대로 채워나가면 된다.
+
+ex: (가치, 무게) = { (4, 12), (2, 1), (10, 4), (1, 1), (2, 2)}
+    가 있을 때 15kg짐을 채우기 위해 단가가 제일 높은 세번째 짐(2.5달러)부터 시작해서
+    8kg의 짐을 담고 마지막 남은 7kg은 단가가 제일 낮은 첫번째 짐은 7/12만큼 
+    쪼개서 그리디 알고리즘으로 담는다.
+    결국 17.3이라는 최적해를 찾을 수 있다.
+
+이 문제를 풀기위해 우선 단가를 계산하고 역순으로 정렬한다(단가가 높은 순)
+
+파이썬 그리디 알고리즘
+def fractional_knapsack(cargo: List[[]]):
+    capacity = 15
+    pack = []
+    # 단가 계산 역순 정렬
+    for c in cargo:
+        pack.append((c[0] / c[1], c[0], c[1]))
+    pack.sort(reverse=True)
+
+    # 단가 순 그리디 계산
+    total_value: float = 0
+    for p in pack:
+        if capacity - p[2] >= 0:
+            capacity -= p[2]
+            total_value += p[1]
+        else:
+            fraction = capacity / p[2]
+            total_value += p[1] * fraction
+            break
+
+    return total_value
+
+만약 짐을 쪼갤 수 없다면 이 방법은 사용해서는 안된다.
