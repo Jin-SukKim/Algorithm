@@ -24,11 +24,15 @@ def zero_one_knapsack(cargo):
     capacity = 15
     pack = []
 
+    # 물건 개수 
     for i in range(len(cargo) + 1):
         pack.append([])
+        # 배낭의 최대 용량 (짐의 개수와 배낭의 용량에 따른 최댓값)
         for c in range(capacity + 1):
+            # 시작엔 아무것도 안 담았으므로 0
             if i == 0 or c == 0:
                 pack[i].append(0)
+            # 물건 i의 무게가 배낭 용량을 초가하지 않으면 최댓값을 담는다.
             elif cargo[i - 1][1] <= c:
                 pack[i].append(
                     max(
@@ -36,6 +40,7 @@ def zero_one_knapsack(cargo):
                         pack[i - 1][c]
                     )
                 )
+            # 물건 i의 무게가 배낭 용량을 초과하면 물건 i - 1까지만 담는다.
             else:
                 pack[i].append(pack[i - 1][c])
 
