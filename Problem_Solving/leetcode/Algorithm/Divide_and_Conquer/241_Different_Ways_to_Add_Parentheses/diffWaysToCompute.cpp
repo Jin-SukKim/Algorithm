@@ -47,21 +47,28 @@ public:
     {
         std::vector<int> results;
         int compute = 0;
-        for (int l : left)
+        for (int& l : left)
         {
-            for(int r : right)
+            for(int& r : right)
             {
-                if (op == '+')
-                    compute = l + r;
-                else if (op == '-')
-                    compute = l - r;
-                else if (op == '*')
-                    compute = l * r;
-                results.push_back(compute);
+                switch (op)
+                {
+                case '+':
+                    results.push_back(l + r);
+                    break;
+                case '-':
+                    results.push_back(l - r);
+                    break;
+                case '*':
+                    results.push_back(l * r);
+                    break;
+                }
             }
         }
+
         return results;
     }
+
     std::vector<int> diffWaysToCompute(std::string expression)
     {   
         // string이 전부 int인지 확인(그래서 마지막에 한자리 숫자가 아닌 것도 숫자로 인식하게 한다.)
