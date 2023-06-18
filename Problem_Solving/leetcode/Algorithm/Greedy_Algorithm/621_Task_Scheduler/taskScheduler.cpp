@@ -70,27 +70,32 @@ public:
 
         while (true)
         {
-            int sub_count = 0;
+            std::vector<int> remain;
             // n번의 간격 내에는 동일한 task를 실행할 수 없고 더 이상
             // task 실행할 수 없으면 idle 상태로 바뀐다.
-            int cycle = n;
+            // ex) A -> B -> idle or A -> B -> C -> A ect
+            int cycle = n + 1;
 
             // 가장 개수가 많은 아이템부터 하나씩 추출
             while (cycle && !q.empty())
             {
-                int remain = q.top() - 1;
+                int top = q.top() - 1;
+                q.pop();
                 result++;
                 cycle--;
 
-                q.pop();
-                if (remain > 0)
-                    q.push(remain);
+                if (top > 0)
+                    remain.push_back(top);
             }
+
+            for (int& count : remain)
+                q.push(count);
 
             if (q.empty())
                 break;
-        
-            result += 1;
+
+            // idle
+            result += cycle;
         }
 
         return result;
