@@ -1,0 +1,26 @@
+상향식(Bottom-Up) - 반복문 사용
+def fib(n):
+    dp[0] = 0
+    dp[1] = 1
+
+    for i in range(2, n + 1)
+        dp[i] = dp[i - 1] + dp[i - 2]
+    return dp[n]
+
+상향식 방법론으로 작은 하위 문제부터 차례대로 정답을 풀어나가며 큰 문제의 정답을 만든다.
+데이터를 테이블 형태로 만들면서(Tabulation) 문제를 풀이한다고 하여 타뷸레이션 방식이라 한다.
+
+하향식(Top-Down) - 재귀
+def fib(n):
+    if n <= 1:
+        return n
+
+    if dp[n]:
+        return dp[n]
+    dp[n] = fib(n - 1) + fib(n - 2)
+    return dp[n]
+
+하향식 방법론은 하위 문제에 대한 정답을 계산했는지 확인해가며 문제를 자연스럽게
+재귀로 풀어나간다.
+기존 재귀 풀이와 거의 동일하면서도 이미 풀어봤는지 확인하여 재활용하는 효율적인 방식으로,
+메모이제이션(Memoization) 방식이라고 부른다.
