@@ -54,4 +54,15 @@ public:
         // 마지막 값
         return *dp.rbegin();
     }
+
+    int rob2(std::vector<int>& nums) {
+        // pre는 한 집 건넛집, cur는 옆집, num[i]는 첫 집
+        int n = nums.size(), pre = 0, cur = 0;
+        for (int i = 0; i < n; i++) {
+            int temp = std::max(pre + nums[i], cur);
+            pre = cur;
+            cur = temp;
+        }
+        return cur;
+    }
 };
