@@ -43,6 +43,18 @@ public:
             
         return results;
     }
+
+    int maxSubArray2(std::vector<int>& nums) {
+        int sum = 0, smax = INT_MIN;
+        for (int num : nums) {
+            sum += num;
+            smax = std::max(smax, sum);
+            if (sum < 0) {
+                sum = 0;
+            }
+        }
+        return smax;
+    }
 };
 
 int main()
