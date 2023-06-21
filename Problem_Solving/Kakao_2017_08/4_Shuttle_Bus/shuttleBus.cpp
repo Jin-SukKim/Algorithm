@@ -46,10 +46,54 @@
 */
 #include <string>
 #include <vector>
+#include <queue>
 
+// 셔틀은 09:00부터 총 n회 t분 간격으로 역에 도착하며 하나의 셔틀에 최대 m명의 승객이 탈 수 있다.
+// 서틀이 도착했을 때 도착한 순간에 대기열에 선 크루까지 포함해 순서대로 태우고 출발한다.
 // n = 셔틀 운행 횟수, t = 셔틀 운행간격, m = 한 셔틀에 탈 수 있는 최대 크루 수
 // timeTable = 크루가 대기열에 도착하는 시각을 모은 배열
 std::string shuttle(int n, int t, int m, std::vector<std::string> timeTable)
 {
+    std::priority_queue<int, std::vector<int>, std::greater<int>> table;
+    for (auto time : timeTable)
+    {
+        std::string::size_type sz; // size_t
+        int t = std::stoi(time, &sz) * 60;
+        time.erase(0, 3);
+        t += std::stoi(time, &sz);
+        table.push(t);
+    };
 
+    // 버스 운행은 9시부터 총 n회 t분 간격, 총 m명을 태운다.
+    int current = 540;
+    int candidate = 0;
+    while (n--) {
+        while (m--)
+        {
+            // 대기가 있는 경우 1분 전 도착
+            if (!table.empty() && table.top() <= current) 
+            {
+                candidate = table.top() - 1;
+                table.pop();
+            }
+            // 대기가 없는 경우 정시 도착
+            else
+                candidate = current;
+        }
+        current += t;
+    }
+
+    // 분에서 다시 시, 분으로 변경
+    auto dv = std::div(candidate, 60);
+    return std::string(dv.quot + ":" + dv.rem);
+}
+
+int main()
+{
+    std::vector<std::string> table = 
+    {
+        "08:00", "08:01", "08:02", "08:03"
+    };
+    shuttle(1, 1, 5, table);
+    return 0;
 }
