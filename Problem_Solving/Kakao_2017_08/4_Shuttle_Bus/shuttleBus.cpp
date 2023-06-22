@@ -71,6 +71,7 @@ std::string shuttle(int n, int t, int m, std::vector<std::string> timeTable)
         while (m--)
         {
             // 대기가 있는 경우 1분 전 도착
+            // 콘은 먼저 타야 하므로 candidate 변수는 항상 1분 먼저 오도록 설정
             if (!table.empty() && table.top() <= current) 
             {
                 candidate = table.top() - 1;
