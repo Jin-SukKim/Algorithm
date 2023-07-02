@@ -70,6 +70,7 @@
         "xlocmes": "cpp",
         "xlocmon": "cpp",
         "xloctime": "cpp",
-        "numeric": "cpp"
+        "numeric": "cpp",
+        "regex": "cpp"
     }
 }
