@@ -19,11 +19,18 @@ int main()
         하지만 입출력의 순서를 보장받을 수 없다.(입력과 출력 각각의 순서는 
         보장받을 수 있다는 의미)
 
-        endl은 새로운 줄로 개행해 줄 뿐만 아니라 출력 버퍼를 지워주기도 해 
-        "\n"보다 시간이 더 걸린다. (cin.tie(nullptr)의 효과도 볼 수 없게 해준다.)
-    */
+        */
     std::cin.tie(nullptr); // cin만 풀어줘 입력을 먼저 한 번에 다 받는다.
     std::ios::sync_with_stdio(false);
     int T, a, b;
+    std::cin >> T;
+    while (T--) {
+        std::cin >> a >> b;
+        /*
+            endl은 새로운 줄로 개행해 줄 뿐만 아니라 출력 버퍼를 지워주기도 해 
+            "\n"보다 시간이 더 걸린다. (cin.tie(nullptr)의 효과도 볼 수 없게 해준다.)
+        */
+        std::cout << a + b << "\n";
+    }
     return 0;
 }
