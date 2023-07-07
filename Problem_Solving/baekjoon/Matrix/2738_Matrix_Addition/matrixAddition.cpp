@@ -30,6 +30,7 @@ public:
         }
     }
 
+    // 유저의 입력이 없을 시
     void constructMat(int N, int M)
     {
         col = N;
