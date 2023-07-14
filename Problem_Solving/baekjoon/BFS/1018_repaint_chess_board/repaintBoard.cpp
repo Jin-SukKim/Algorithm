@@ -2,7 +2,6 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <climits>
 
 int fixLine(std::string& s, std::vector<char> &pattern, int j)
 {
