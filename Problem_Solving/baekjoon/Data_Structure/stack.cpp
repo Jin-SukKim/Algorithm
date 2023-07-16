@@ -25,11 +25,13 @@ public:
 	{
 		length++;
 		Node* node = new Node(val);
+        // 아무런 데이터가 없을 때
 		if (head == nullptr)
 		{
 			head = node;
 			tail = node;
 		}
+        // 데이터가 있을 때
 		else 
 		{
 			tail->next = node;
@@ -44,21 +46,27 @@ public:
 		
 		int value = tail->value;
 		length--;
+
+        // stack에 데이터가 1개일 때
 		if (head == tail)
 		{
 			delete(head);
 			head = nullptr;
 			tail = nullptr;
 		}
+        // 데이터가 여러개 있을 때 맨 뒤의 한 데이터만 삭제한다.
 		else
 		{
 			Node* p = head;
+            // Linked-List 구조로 되어 있어 Head부터 tail 이전까지 찾는다.
 			while (p->next->next)
 			{
 				p = p->next;
 			}
+            // tail의 데이터를 삭제한다.
 			delete p->next;
 			p->next = nullptr;
+            // tail을 앞 데이터를 가르키게 한다.
 			tail = p;
 		}
 
@@ -77,6 +85,7 @@ public:
 		return 1;
 	}
 
+    // LIFO 구조로 tail의 data를 출력한다.
 	int top()
 	{
 		if (tail)
@@ -87,6 +96,7 @@ public:
 private:
 	Node* head;
 	Node* tail;
+    // 스택의 길이
 	int length;
 };
 
