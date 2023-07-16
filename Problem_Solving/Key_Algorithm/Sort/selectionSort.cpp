@@ -8,9 +8,11 @@ std::vector<int> selectionSort(std::vector<int> &v, int &N)
 		int index = i;
 		for (int j = i + 1; j < N; j++)
 		{
+			// index보다 작은 index를 찾는다.
 			if (v[index] > v[j])
 				index = j;
 		}
+		// i보다 뒤에 있는 index들 중 가장 작은 index와 바꿔준다.
 		std::swap(v[index], v[i]);
 	}
 	return v;

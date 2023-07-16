@@ -3,6 +3,7 @@
 #include <algorithm>
 
 // 평균적으로 O(n log n), 최악의 경우 O(n^2)
+// v = 배열, l = v.begin(), r = v.end() - 1
 void quickSort(std::vector<int> &v, int l, int r)
 {
 	// best case
@@ -10,6 +11,7 @@ void quickSort(std::vector<int> &v, int l, int r)
 		return;
 
 	// overflow 방지하며 중간 길이 구하기
+	// r + l을 한 뒤 2로 나누는 경우 r + l에서 int의 범위를 벗어날 가능성이 있다.
 	int middle = l + (r - l) / 2;
 	// 왼쪽, 오른쪽 포인터
 	int pl = l, pr = r;
@@ -17,7 +19,8 @@ void quickSort(std::vector<int> &v, int l, int r)
 	// pivot 값
 	int pivot = v[middle];
 
-	// <= 작거나 같을때까지 비교하면 left가 right보다 오른쪽에 간다.
+	// <= 작거나 같을때까지 비교하면 left ptr가 right ptr보다 오른쪽에 간다.
+	// 즉, 두 포인터가 서로 엇갈린다.
 	while (pl <= pr)
 	{
 		// 왼쪽값이 pivot보다 작으면 왼쪽 포인터를 움직인다.
@@ -29,6 +32,7 @@ void quickSort(std::vector<int> &v, int l, int r)
 		while (pivot < v[pr])
 			pr--;
 
+		// 결국 pivot의 위치에 left, right 포인터가 모였다가 한 칸씩 더 움직여 서로 엇갈린다.
 		if (pl <= pr) {
 			std::swap(v[pl], v[pr]);
 			pl++;
@@ -37,9 +41,11 @@ void quickSort(std::vector<int> &v, int l, int r)
 	}
 	
 	// right포인터가 left 포인터보다 왼쪽에 있다.
+	// pivot을 중심으로 왼쪽 배열[l...pr]을 정렬해준다.
 	if (l < pr)
 		quickSort(v, l, pr);
 	// left포인터가 right포인터보다 오른쪽에 있다.
+	// pivot을 중심으로 오른쪽 배열[pl...r]을 정렬해준다.
 	if (pl < r)
 		quickSort(v, pl, r);
 }
