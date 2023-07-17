@@ -12,6 +12,8 @@ public:
 	Node(char c) : data(c), left(nullptr), right(nullptr) {}
 };
 
+// Doubly Linked-List(이중 연결 리스트)
+// current 포인터를 중심으로 활용한다.
 class LinkedList
 {
 public:
