@@ -72,6 +72,7 @@
         "xloctime": "cpp",
         "numeric": "cpp",
         "regex": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "climits": "cpp"
     }
 }
