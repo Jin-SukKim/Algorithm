@@ -13,7 +13,6 @@ int main()
 	int n;
 	std::cin >> n;
 	std::vector<int> v(n);
-	// 나온 빈도수를 비교
 	std::unordered_map<int, int> freq;
 	for (int i = 0; i < n; i++)
 	{
@@ -30,16 +29,14 @@ int main()
 	
 	for (int i = n-1; i >= 0; i--)
 	{
-		// stack에 값이 있으면 현재 위치(i)와 그 오른쪽 값들의 빈도수 비교
 		while (!stack.empty() && freq[stack.top()] <= freq[v[i]])
 			stack.pop();
 		
-		// 비교할 값이 없거나 현재 위치(i)보다 많이 나온 값이 없으면
 		if (stack.empty())
 			res[i] = -1;
 		else
 			res[i] = stack.top();
-
+			
 		stack.push(v[i]);
 	}
 
