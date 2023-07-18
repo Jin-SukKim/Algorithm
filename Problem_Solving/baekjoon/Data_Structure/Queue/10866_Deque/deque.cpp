@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-// Deque (r의 위치를 빈 자리로 만들었다.)
+// 원형큐
 class Deque
 {
 public:
