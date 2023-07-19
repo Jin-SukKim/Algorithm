@@ -69,7 +69,6 @@ int main()
 		words[i] = s.substr(i, end - i);
 	}
 
-	// baekjoon example은 잘됬으나 제출하면 틀림
 	//mergeSort(words, 0, end-1);
 	std::sort(words.begin(), words.end());
 
