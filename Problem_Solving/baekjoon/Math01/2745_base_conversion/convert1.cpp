@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+// N진법을 10진법으로 바꾸는것
 int main()
 {
     std::ios_base::sync_with_stdio(false);
