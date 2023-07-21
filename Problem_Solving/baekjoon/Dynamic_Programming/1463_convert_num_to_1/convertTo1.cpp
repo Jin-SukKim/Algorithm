@@ -1,8 +1,6 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
-
-// Bottom-Up
 int main()
 {
 	std::ios_base::sync_with_stdio(0);
