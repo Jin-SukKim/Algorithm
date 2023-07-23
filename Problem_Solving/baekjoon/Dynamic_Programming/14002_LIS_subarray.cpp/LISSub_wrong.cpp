@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 
+// 70% 정도에서 실패했다.
 // Bottom-Up
 int main()
 {
@@ -36,32 +37,14 @@ int main()
 		// 작거나 같다면 (가장 작은 값부터 시작해야 제일 긴 부분 배열을 얻을 수 있다)
 		else
 		{
-			// lower_bound 함수는 현재값을 찾고 그 index를 return한다.
-			// 만약 현재값이 없다면 맨 처음 index를 return한다.
-			// ex) {1, 2, 5}가 있고 현재 값이 3이라면 5를 3으로 바꿔준다.
 			auto index = std::lower_bound(sub.begin(), sub.end(), nums[i]);
 			*index = nums[i];
-			dp.push_back(index - sub.begin() + 1); // 현재 값의 부분 배열 최장 길이
+			dp.push_back(index - sub.begin() + 1);
 		}
 	}
 
-	int temp = sub.size();
-
-	std::vector<int> ans;
-	for (int i = n - 1; i >= 0; i--)
-	{
-		if (dp[i] == temp)
-		{
-			ans.push_back(nums[i + 1]);
-			temp--;
-		}
-	}
-
-	std::cout << ans.size() << "\n";
-	for (int i = ans.size() - 1; i >= 0; i--)
-	{
-		std::cout << ans[i] << " ";
-	}
-
+	std::cout << sub.size() << "\n";
+	for (int& i : sub)
+		std::cout << i << " ";
 	return 0;
 }

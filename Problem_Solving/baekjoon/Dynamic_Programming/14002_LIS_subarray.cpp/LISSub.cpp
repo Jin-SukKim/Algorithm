@@ -48,6 +48,7 @@ int main()
 	int temp = sub.size();
 
 	std::vector<int> ans;
+    // dp와 sub은 0에서부터 시작하나 nums은 0을 공백으로 처리하고 1부터 시작한다.
 	for (int i = n - 1; i >= 0; i--)
 	{
 		if (dp[i] == temp)
