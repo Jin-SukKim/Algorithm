@@ -1,1 +1,1 @@
-{"name":"Local: temp","url":"c:\\Study\\Algorithm\\Problem_Solving\\baekjoon\\temp.cpp","tests":[],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Study\\Algorithm\\Problem_Solving\\baekjoon\\temp.cpp","group":"local","local":true}
+{"name":"Local: temp","url":"c:\\Study\\Algorithm\\Problem_Solving\\baekjoon\\temp.cpp","tests":[{"id":1690963027995,"input":"6\n20 1 15 8 4 10","output":"62"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Study\\Algorithm\\Problem_Solving\\baekjoon\\temp.cpp","group":"local","local":true}
