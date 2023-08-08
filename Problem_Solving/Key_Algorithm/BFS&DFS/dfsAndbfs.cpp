@@ -88,6 +88,7 @@ int main()
     {
         int a, b;
         std::cin >> a >> b;
+        // 양방향 간선처리 (무방향)
         graph[a].push_back(b);
         graph[b].push_back(a);
     }
