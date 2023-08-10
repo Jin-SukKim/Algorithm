@@ -2,9 +2,12 @@
 #include <vector>
 #include <queue>
 
+// 16퍼에서 계속 틀리는데 왠만한 테스트 케이스는 다 통과해서 무엇이 문제인지 
+// 아직 잘 모르겠다.
 void bfs(std::vector<std::vector<int>> &board,
          int &n, int &startC, int &startR, int &tC, int &tR)
 {
+    // 나이트 말이 움직일 수 있는 다음 칸
     std::vector<int> dirCol = {-2, -2, -1, -1, 1, 1, 2, 2};
     std::vector<int> dirRow = {1, -1, 2, -2, 2, -2, 1, -1};
 
@@ -18,6 +21,7 @@ void bfs(std::vector<std::vector<int>> &board,
 
         q.pop();
 
+        // 목표 지점에 도달했다면
         if (col == tC && row == tR)
         {
             std::cout << board[col][row] - 1 << '\n';
@@ -26,9 +30,12 @@ void bfs(std::vector<std::vector<int>> &board,
 
         for (int i = 0; i < 8; i++)
         {
+            // 움직일 수 있는 다음 위치
             int nCol = col + dirCol[i];
             int nRow = row + dirRow[i];
 
+            // 보드 안이어야 하고 아직 안 가본 곳이어야 한다.
+            // 처음 가는 곳은 0 이 입력되어 있고 아니라면 0보다 큰 값이 있다.
             if (nCol >= 0 && nCol < n && nRow >= 0 && nRow < n && !board[nCol][nRow])
             {
                 board[nCol][nRow] = board[col][row] + 1;
@@ -52,6 +59,7 @@ int main()
         int n;
         std::cin >> n;
 
+        // 보드 생성
         std::vector<std::vector<int>> board(n, std::vector<int>(n));
 
         int startCol, startRow;
