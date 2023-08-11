@@ -13,8 +13,8 @@ void bfs(std::vector<std::vector<int>> &board,
 
     while (!q.empty())
     {
-        int col = q.front().second;
-        int row = q.front().first;
+        int col = q.front().first;
+        int row = q.front().second;
 
         q.pop();
 

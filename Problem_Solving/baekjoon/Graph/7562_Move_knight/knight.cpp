@@ -2,8 +2,6 @@
 #include <vector>
 #include <queue>
 
-// 16퍼에서 계속 틀리는데 왠만한 테스트 케이스는 다 통과해서 무엇이 문제인지 
-// 아직 잘 모르겠다.
 void bfs(std::vector<std::vector<int>> &board,
          int &n, int &startC, int &startR, int &tC, int &tR)
 {
@@ -16,8 +14,8 @@ void bfs(std::vector<std::vector<int>> &board,
 
     while (!q.empty())
     {
-        int col = q.front().second;
-        int row = q.front().first;
+        int col = q.front().first;
+        int row = q.front().second;
 
         q.pop();
 
