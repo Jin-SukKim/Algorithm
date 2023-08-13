@@ -1,30 +1,26 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-#include <algorithm>
-
-void bfs(std::vector<std::vector<int>> &graph, std::vector<bool> &visited,
-         std::vector<int> &ans)
+void bfs(std::vector<bool>& visited, int& N, int& K)
 {
-    std::queue<int> q;
-    q.push(1);
-    visited[1] = true;
+    std::queue<std::pair<int, int>> q;
+    q.push({N, 0});
 
     while (!q.empty())
     {
-        int n = q.front();
+        int f = q.front().first;
+        int sec = q.front().second;
         q.pop();
 
-        ans.push_back(n);
+        if (f == K)
+            return;
 
-        for (int &i : graph[n])
-        {
-            if (!visited[i])
-            {
-                visited[i] = true;
-                q.push(i);
-            }
-        }
+        if (visited[f - 1] || visited[f + 1] || visited[f * 2])
+            continue;
+
+        q.push({f - 1, sec + 1});
+        q.push({f + 1, sec + 1});
+        q.push({f * 2, sec + 1});
     }
 }
 
@@ -34,44 +30,7 @@ int main()
     std::cin.tie(nullptr);
     std::cout.tie(nullptr);
 
-    int N;
-    std::cin >> N;
-
-    std::vector<std::vector<int>> graph(N + 1);
-    for (int i = 0; i < N - 1; i++)
-    {
-        int a, b;
-        std::cin >> a >> b;
-        graph[a].push_back(b);
-        graph[b].push_back(a);
-    }
-
-    // 벡터에 입력된 순서
-    std::vector<int> order(N + 1);
-    // graph를 정렬하기 위한 기준 벡터
-    std::vector<int> bfsOrder(N + 1);
-    for (int i = 1; i <= N; i++)
-    {
-        std::cin >> order[i];
-        // 각 숫자가 입력받은 순서
-        bfsOrder[order[i]] = i;
-    }
-
-    for (int i = 1; i <= N; i++)
-    {
-        std::sort(graph[i].begin(), graph[i].end(), [&](const int &a, const int &b)
-                 { return bfsOrder[a] < bfsOrder[b]; });
-    }
-
-    std::vector<bool> visited(N + 1);
-    std::vector<int> ans;
-    ans.push_back(0);
-   
-    bfs(graph, visited, ans);
-    
-    if (ans == order)
-       std::cout << 1;
-    else
-        std::cout << 0;
+    int N, K;
+    std::cin >> N >> K;
     return 0;
 }
