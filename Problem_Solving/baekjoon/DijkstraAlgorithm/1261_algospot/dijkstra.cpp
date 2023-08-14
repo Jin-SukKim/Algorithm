@@ -48,11 +48,17 @@ void dijkstra(std::vector<std::vector<int>> &maze, int &N, int &M)
         int row = top.position.second;
         int weight = top.weight;
 
-        // 큐에 넣을 때 방문했던 곳인지 파악하지 않기 때문에 한 번 더 삽입될 수 있다.
         // 현재 노드까지 비용 처리가 되어 있고 더 적은 비용이 든다면
         // 큐에서 나온 노드의 거리가 최단거리 테이블보다 크면 이미 갱신된 것으로 판단
         if (distance[col][row] < weight)
             continue;
+
+        // 목표 지점에 도달했다면 찾기를 끝내준다.
+        if (col == N - 1 && row == M - 1)
+        {
+            std::cout << distance[N - 1][M - 1];
+            return;
+        }
 
         // 현재 노드와 연결된 갈 수 있는 인접한 노드들 확인
         for (int i = 0; i < 4; i++)
@@ -75,7 +81,7 @@ void dijkstra(std::vector<std::vector<int>> &maze, int &N, int &M)
         }
     }
 
-    std::cout << distance[N - 1][M - 1];
+    //std::cout << distance[N - 1][M - 1];
 }
 
 int main()
