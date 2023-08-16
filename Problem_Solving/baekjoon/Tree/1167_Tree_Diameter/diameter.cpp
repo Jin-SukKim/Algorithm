@@ -18,7 +18,7 @@ private:
     const int V;
 
 public:
-    Answer(std::vector<std::vector<Node>> &&tree, const int V)
+    Answer(std::vector<std::vector<Node>> &&tree, const int V) 
         : tree(tree), V(V), diameter(0), farthest(1)
     {
         visited = std::vector<bool>(V + 1, false);
@@ -74,12 +74,20 @@ int main()
     std::cin >> V;
 
     std::vector<std::vector<Node>> tree(V + 1);
-    for (int i = 0; i < V - 1; i++)
+    for (int i = 0; i < V; i++)
     {
-        int from, to, dis;
-        std::cin >> from >> to >> dis;
-        tree[from].push_back({to, dis});
-        tree[to].push_back({from, dis});
+        int from;
+        std::cin >> from;
+        while (1)
+        {
+            int to, dis;
+            std::cin >> to;
+            if (to == -1)
+                break;
+            std::cin >> dis;
+            tree[from].push_back({to, dis});
+            tree[to].push_back({from, dis});
+        }
     }
 
     Answer a(std::move(tree), V);
