@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-
 struct Node
 {
     int Next;
@@ -10,18 +9,18 @@ struct Node
 class Answer
 {
 private:
-    std::vector<std::vector<Node>> tree;
-    std::vector<bool> visited;
+    std::vector<std::vector<Node>> m_Tree;
+    std::vector<bool> m_Visited;
     // 트리의 diameter(지름)
-    int diameter;
-    int farthest;
-    const int V;
+    int m_Diameter;
+    int m_Farthest;
+    const int m_V;
 
 public:
     Answer(std::vector<std::vector<Node>> &&tree, const int V)
-        : tree(tree), V(V), diameter(0), farthest(1)
+        : m_Tree(tree), m_V(V), m_Diameter(0), m_Farthest(1)
     {
-        visited = std::vector<bool>(V + 1, false);
+        m_Visited = std::vector<bool>(V + 1, false);
         // 소유권 박탈 (reset)
         tree.clear();
         tree.shrink_to_fit();
@@ -29,19 +28,19 @@ public:
 
     void dfs(int node, int dis)
     {
-        if (visited[node])
+        if (m_Visited[node])
             return;
 
-        if (diameter < dis)
+        if (m_Diameter < dis)
         {
-            farthest = node;
-            diameter = dis;
+            m_Farthest = node;
+            m_Diameter = dis;
         }
 
-        visited[node] = true;
+        m_Visited[node] = true;
 
         // 현재 정점에서 연결된 정점들로 이동
-        for (auto &i : tree[node])
+        for (auto &i : m_Tree[node])
         {
             dfs(i.Next, dis + i.Distance);
         }
@@ -49,18 +48,18 @@ public:
 
     int getFarthest()
     {
-        return farthest;
+        return m_Farthest;
     }
 
     void reset()
     {
-        diameter = 0;
-        std::fill(visited.begin(), visited.end(), false);
+        m_Diameter = 0;
+        std::fill(m_Visited.begin(), m_Visited.end(), false);
     }
 
     void maxDis()
     {
-        std::cout << diameter;
+        std::cout << m_Diameter;
     }
 };
 
