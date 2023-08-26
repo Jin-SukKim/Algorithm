@@ -53,7 +53,21 @@ int binary_search(std::vector<int>& v, int& target, int l, int r)
         int mid = l + (r - l);
 
         if (v[mid] == target)
-            return 1;   
+        {
+            l = mid;
+            // 정렬된 배열에서 같은 target을 가진 가장 왼쪽 index를 찾는다.
+            for (l = mid; l >= 0; l--)
+                if (v[l - 1] != target)
+                    break;
+
+            // 정렬된 배열에서 같은 target을 가진 가장 오른쪽 index를 찾는다.
+            for (r = mid; r < v.size(); r++)
+                if (v[r + 1] != target)
+                    break;
+
+            // r - l에 자기 자신을 포함해야 되 + 1을 해준다.
+            return r - l + 1;
+        }
 
         // 중간에 있던 값보다 target이 크면 오른쪽 배열에서 검색하도록 한다.
         if (v[mid] < target)
@@ -66,9 +80,6 @@ int binary_search(std::vector<int>& v, int& target, int l, int r)
     return 0;
 }
 
-// 직접 만든 함수들로 제출하면 시간 초과가 걸린다.
-// mergeSort는 아마 std::vector로 left, right을 생성해서인 것 같고
-// binary_search는 아직 잘 모르겠다.
 int main() {
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(nullptr);
@@ -79,7 +90,6 @@ int main() {
     std::vector<int> own(N);    
     for (int i = 0; i < N; i++)
         std::cin >> own[i];
-
     std::sort(own.begin(), own.end());
 
     int M;
@@ -87,7 +97,8 @@ int main() {
     for (int i = 0; i < M; i++) {
         int t;
         std::cin >> t;
-        std::cout << std::binary_search(own.begin(), own.end(), t) << ' ';
+        std::cout << std::upper_bound(own.begin(), own.end(), t) -
+        std::lower_bound(own.begin(), own.end(), t) << ' ';
     }
 
     return 0;
