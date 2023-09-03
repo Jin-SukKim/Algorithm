@@ -1,61 +1,76 @@
 #include <iostream>
-#include <vector>
+#include <queue>
+/*
+    음.. 빌딩의 시작 위치와 높이, 끝나는 위치와 높이 2개로
+    queue를 만들어야 될 것 같다.
+    정답 저장용 queue도 한개 만들어줘야 할 듯
+
+*/
+struct Building {
+    int L;
+    int H;
+    int R;
+
+    // L이 낮은 순서대로 가져온다.
+    bool operator<(const Building& s) const {
+        if (this->L == s.L)
+            return this->H < s.H;
+        return this->L > s.L;
+    }
+
+    bool operator!=(const Building& s) const {
+        return this->L != s.L && this->H != s.H && this->R != s.R;
+    }
+};
+
+struct cmp {
+    bool operator()(const Building &a, const Building &b) { return a.H < b.H; }
+};
 
 class Answer {
-  private:
-    std::vector<long long> nums;
-    std::vector<long long> sorted;
-    long long count;
-
-  private:
-    void merge(long long l, long long mid, long long r) {
-        long long i = l;
-        long long j = mid + 1;
-        long long k = l;
-
-        while (i <= mid && j <= r) {
-            // 작은 수는 바꿔줄 필요가 없으니 그대로 넣어준다.
-            // 중복값도 들어갈 수 있다.
-            if (nums[i] <= nums[j])
-                sorted[k++] = nums[i++];
-            else {
-                // 앞에 있던 수가 더 큰 수이니깐 뒤의 수와 바꿔준다.
-                // 버블 정렬로 지면 j까지 j - k번 swap하는 것이다.
-                count += j - k;
-                sorted[k++] = nums[j++];
-            }
-        }
-
-        while (i <= mid)
-            sorted[k++] = nums[i++];
-
-        while (j <= r)
-            sorted[k++] = nums[j++];
-        
-        for (int i = l; i <= r; i++)
-        {
-            nums[i] = sorted[i];
-        }
-    }
+    std::priority_queue<Building> build;
 
   public:
-    Answer(long long &N)
-        : nums(std::vector<long long>(N)), sorted(std::vector<long long>(N)), count(0) {
-        for (long long i = 0; i < N; i++) {
-            std::cin >> nums[i];
+    Answer(int N) {
+        for (int i = 0; i < N; i++) {
+            Building b;
+            std::cin >> b.L >> b.H >> b.R;
+            build.push(b);
         }
     }
 
-    void sort(long long l, long long r) {
-        if (l < r) {
-            long long mid = l + (r - l) / 2;
-            sort(l, mid);
-            sort(mid + 1, r);
-            merge(l, mid, r);
+    void skyLine() {
+        std::priority_queue<Building, std::vector<Building>, cmp> sky;
+        sky.push(build.top());
+        build.pop();
+
+        Building line = sky.top();
+        while (!build.empty()) {
+            Building b = build.top();
+            build.pop();
+
+            Building s = sky.top();
+            if (line != s)
+            {
+                std::cout << line.L << " " << line.H << " ";
+                line = s;
+            }
+            if (b.L < s.R) {
+                sky.push(b);
+            }
+            else {
+                while (!sky.empty())
+                {
+                    s = sky.top();
+                    if (b.L > s.R && line.R > b.R)
+                    {
+
+                    }
+                    sky.pop();
+                }
+            }
         }
     }
-
-    void printAnswer() { std::cout << count; }
 };
 
 // 버블 정렬은 결국 자신보다 큰 값이 나올 때까지
@@ -66,11 +81,11 @@ int main() {
     std::cin.tie(nullptr);
     std::cout.tie(nullptr);
 
-    long long N;
+    int N;
     std::cin >> N;
+
     Answer a(N);
-    a.sort(0, N - 1);
-    a.printAnswer();
+    a.skyLine();
 
     return 0;
 }
