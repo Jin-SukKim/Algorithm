@@ -14,7 +14,6 @@ class Answer {
     std::vector<Student> s;
     std::vector<Student> sorted;
 
-    // 조건
     bool compare(const Student &s1, const Student &s2) const {
         if (s1.kor == s2.kor) {
             if (s1.eng == s2.eng) {
