@@ -23,12 +23,12 @@ void search_max(std::vector<int>& line, int l, int r, int& C, int& res)
 
     if (count < C)
     {
-        search_max(line, l, mid - 1, C, res);
+        return search_max(line, l, mid - 1, C, res);
     }
     else
     {
         res = mid;
-        search_max(line, mid + 1, r, C, res);
+        return search_max(line, mid + 1, r, C, res);
     }   
 }
 
