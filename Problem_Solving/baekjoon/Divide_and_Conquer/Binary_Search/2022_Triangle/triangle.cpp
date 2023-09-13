@@ -1,4 +1,3 @@
-
 #include <cmath>
 #include <iostream>
 
@@ -22,6 +21,7 @@ class Answer {
                 l = mid;
             }
         }
+        
         printf("%.3lf\n", res);
     }
 
