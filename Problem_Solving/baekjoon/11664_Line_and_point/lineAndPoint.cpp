@@ -41,7 +41,7 @@ int main() {
     for (int i = 0; i < 3; i++)
         std::cin >> v[i].x >> v[i].y >> v[i].z;
     
-    // A를 원점 0으로 둔다.
+    // A를 원점 0으로 맞춰준다.
     for (int i = 1; i < 3; i++)
         v[i] = v[i] - v[0];
     v[0] = {0.0, 0.0, 0.0};
