@@ -38,7 +38,6 @@ bool moveCheck(vector<string>& park, Position start, Position dest, string& s)
     Position move = start;
     do {
         move = SetDestination(move, s[0], 1);
-        cout << "Move : " << move.y << " " << move.x << "\n";
         if (park[move.y][move.x] == 'X')
             return false;
     } while (dest.x != move.x || dest.y != move.y);
@@ -66,17 +65,8 @@ vector<int> solution(vector<string> park, vector<string> routes) {
     for (string& s : routes)
     {
         Position dest = SetDestination(pos, s[0], s[2] - '0');
-        cout << dest.y << " " << dest.x << "\n";
         if (moveCheck(park, pos, dest, s))
             pos = dest;
-        cout << pos.y << " " << pos.x << "\n";
     }
     return {pos.y, pos.x};
-}
-
-int main()
-{
-    vector<string> park = {"OSO", "OOO", "OXO", "OOO"};
-    vector<string> routes = {"E 2", "S 3", "W 1"};
-    solution(park, routes);
 }
