@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Study/Algorithm/Problem_Solving/baekjoon",
-      "program": "c:/Study/Algorithm/Problem_Solving/baekjoon/build/Debug/outDebug",
+      "cwd": "c:/Study/Algorithm",
+      "program": "c:/Study/Algorithm/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
