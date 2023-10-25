@@ -12,6 +12,7 @@ struct Assign {
     int PlayTime;
 };
 
+// 시간을 분으로 저장
 int ConvertTime(const string& start)
 {
     int time = stoi(start.substr(0, 2)) * 60;
@@ -19,6 +20,7 @@ int ConvertTime(const string& start)
     return time;
 }
 
+// 남은 시간
 int RemainTime(const int& start, const int& playTime, const int& otherStart)
 {
     return playTime - (otherStart - start);
@@ -38,9 +40,10 @@ vector<string> solution(vector<vector<string>> plans) {
     }
     
     stack<Assign> stop;
+    // 현재 진행 중인 과제
     Assign current = q.top();
     q.pop();
-    int currentTime = current.PlayTime;
+
     while (!q.empty())
     {
         Assign assign = q.top();
