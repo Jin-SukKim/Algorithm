@@ -69,6 +69,7 @@ vector<string> solution(vector<vector<string>> plans) {
         }
         // 하던 과제를 끝냈는데 이전에 멈춘 과제가 있다면
         else if (!stop.empty()) {
+            // 과제를 끝낸 시간에 이전에 멈춘 과제 시작
             int endTime = current.Start + current.PlayTime;
             answer.push_back(current.Name);
 
