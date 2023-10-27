@@ -55,10 +55,13 @@ int Movement(vector<string>& board, Pos& initial) {
             int nCol = col;
             int nRow = row;
             
+            // 미끄러지듯이 움직여 보드 끝이나 벽(D)에 부딪히면 멈춘다.
             while (Check(nCol, nRow, height, width) && board[nCol][nRow] != 'D') {
                 nCol += NextCol[i];
                 nRow += NextRow[i];
             }
+            
+            // 멈춘 위치
             nCol -= NextCol[i];
             nRow -= NextRow[i];
                 
