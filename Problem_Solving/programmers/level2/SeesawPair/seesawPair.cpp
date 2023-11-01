@@ -1,7 +1,6 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <iostream>
 using namespace std;
 // 최대 공약수
 int GCD(int a, int b)
@@ -20,22 +19,7 @@ int GCD(int a, int b)
 // 최소 공배수
 int LCM(int a, int b)
 {
-    return (a * b)/ GCD(a, b);
-}
-
-long long Factorial(vector<long long>& fac, const int& n)
-{
-    for (int i = fac.size(); i < n + 1; i++)
-        fac.push_back(fac[i - 1] * i);
-    return fac[n];
-}
-
-// 조합 개수
-// nCr = nPr / r! = n! / ((n-r)! * r!)
-int Combination(vector<long long>& fac, const int& n) {
-    if (n == 2)
-        return 1;
-    return Factorial(fac, n) / (Factorial(fac, n - 2) * 2);
+    return (a * b) / GCD(a, b);
 }
 
 bool check(const int& a, const int& b)
@@ -49,16 +33,14 @@ bool check(const int& a, const int& b)
 long long solution(vector<int> weights) {
     long long answer = 0;
     map<int, int> m;
-    vector<long long> fac(1, 1);
     
     for (int& w : weights)
         m[w]++;
 
     for (auto [w1, p1] : m)
     {
-        if (p1 > 1)
-            // 같은 몸무게인 사람이 여러명일 때
-            answer += Combination(fac, p1);
+        // 같은 몸무게인 사람이 여러명일 때
+        answer += (long long) p1 * (p1 - 1) / 2;
         
         for (auto [w2, p2] : m)
         {
@@ -70,10 +52,8 @@ long long solution(vector<int> weights) {
                 if (lcm == w2)
                     lcm *= 2;
                 
-                if (check(lcm, w1) && check(lcm, w2)) {
-                    cout << w1 << ' ' << w2 << '\n';
-                    answer += p1 * p2;
-                }
+                if (check(lcm, w1) && check(lcm, w2))
+                    answer += (long long) p1 * p2;
             }
         }
 
@@ -81,10 +61,4 @@ long long solution(vector<int> weights) {
     }
     
     return answer;
-}
-
-int main()
-{
-    solution({100, 180, 360, 100, 270});
-    return 0;
 }
