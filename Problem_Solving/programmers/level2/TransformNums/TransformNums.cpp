@@ -30,9 +30,3 @@ int solution(int x, int y, int n) {
     
     return count[y];
 }
-
-int main()
-{
-    solution(10, 40, 5);
-    return 0;
-}
