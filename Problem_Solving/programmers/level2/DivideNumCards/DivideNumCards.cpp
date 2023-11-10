@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <cmath>
 using namespace std;
 
 // 최대공약수
@@ -31,37 +32,19 @@ int solution(vector<int> arrayA, vector<int> arrayB) {
     int gcdA = GetArrayGCD(arrayA);
     int gcdB = GetArrayGCD(arrayB);
     
-    bool A = false;
-    int i = 0;
-    
-    for (; i < arrayA.size(); i++)
-    {
-        if (arrayA[i] % gcdB == 0) 
+    for (int& i : arrayA) {
+        if (i % gcdB == 0) {
+            gcdB = 0;
             break;
-        
-        if (arrayB[i] % gcdA == 0) {
-            A = true;
+        }      
+    }
+    
+    for (int& i : arrayB) {
+        if (i % gcdA == 0) {
+            gcdA = 0;
             break;
-        }
+        }      
     }
     
-    vector<int>& array = arrayB;
-    int gcd = gcdA;
-    if (A) {
-        array = arrayA;
-        gcd = gcdB;
-    }
-    
-    for (; i < array.size(); i++)
-    {
-        if (array[i] % gcd == 0)
-            return 0;
-    }
-    
-    return gcd;
-}
-int main()
-{
-    solution({10, 20}, {5, 17});
-    return 0;
+    return max(gcdA, gcdB);
 }
