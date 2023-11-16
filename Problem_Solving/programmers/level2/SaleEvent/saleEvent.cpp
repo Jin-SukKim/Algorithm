@@ -5,11 +5,11 @@
 
 using namespace std;
 
-bool Compare(map<string, int> w, const vector<string>& discount, int i)
+bool Compare(map<string, int> w, const vector<string>& discount, int index)
 {
-    for (; i < i + 10; i++) {
-        if (w.count(discount[i]) && w[discount[i]])
-            w[discount[i]]--;
+    for (int i = 0; i < 10; i++) {
+        if (w.count(discount[index + i]) && w[discount[index + i]])
+            w[discount[index + i]]--;
         else 
             return false;
     }
@@ -32,11 +32,4 @@ int solution(vector<string> want, vector<int> number, vector<string> discount) {
             answer++;
     
     return answer;
-}
-
-
-int main()
-{
-    solution({"banana", "apple", "rice", "pork", "pot"}, {3, 2, 2, 2, 1}, {"chicken", "apple", "apple", "banana", "rice", "apple", "pork", "banana", "pork", "rice", "pot", "banana", "apple", "banana"});
-    return 0;
 }
