@@ -29,6 +29,15 @@ int WireCnt(vector<vector<int>>& tree, vector<bool> visited, int i) {
     return cnt;
 }
 
+void WireCnt2(vector<vector<int>>& tree, vector<bool> visited, int& cnt, int idx) {
+    for (int& i : tree[idx]) {
+        if (!visited[i]) {
+            visited[i] = true;
+            WireCnt2(tree, visited, ++cnt, i);
+        }
+    }
+}
+
 int solution(int n, vector<vector<int>> wires) {
     int minCnt = n + 1;
     
