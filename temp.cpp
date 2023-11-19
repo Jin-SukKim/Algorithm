@@ -1,35 +1,38 @@
 #include <string>
 #include <vector>
-#include <map>
+#include <stack>
 #include <iostream>
 
 using namespace std;
 
-bool Compare(map<string, int> w, const vector<string>& discount, int i)
-{
-    for (; i < i + 10; i++) {
-        if (w.count(discount[i]) && w[discount[i]])
-            w[discount[i]]--;
-        else 
-            return false;
+struct Stock {
+    int Price = 0;
+    int Index = 0;
+};
+
+vector<int> solution(vector<int> prices) {
+    vector<int> answer(prices.size(), 0);
+    stack<Stock> stock;
+    stock.push({prices[0], 0});
+    for (int i = 1; i < prices.size(); i++)
+    {
+        if (stock.empty() || stock.top().Price < prices[i])
+            stock.push({prices[i], i});
+        else {
+            // 가격이 떨어지면
+            while (!stock.empty() && stock.top().Price > prices[i])
+            {
+                int idx = stock.top().Index;
+                answer[idx] = i - idx;
+                stock.pop();
+            }
+        }
     }
     
-    for (auto [want, cnt] : w) 
-        if (cnt)
-            return false;
-    
-    return true;
-}
-
-int solution(vector<string> want, vector<int> number, vector<string> discount) {
-    int answer = 0;
-    map<string, int> wants;
-    for (int i = 0; i < want.size(); i++)
-        wants[want[i]] = number[i]; 
-    
-    for (int i = 0; i < discount.size() - 9; i++)
-        if (Compare(wants, discount, i))
-            answer++;
+    // 끝까지 가격이 떨어지지 않은 시점
+    for (int i = 0; i < answer.size(); i++)
+        if (!answer[i])
+            answer[i] = answer.size() - i - 1;
     
     return answer;
 }
@@ -37,6 +40,6 @@ int solution(vector<string> want, vector<int> number, vector<string> discount) {
 
 int main()
 {
-    solution({"banana", "apple", "rice", "pork", "pot"}, {3, 2, 2, 2, 1}, {"chicken", "apple", "apple", "banana", "rice", "apple", "pork", "banana", "pork", "rice", "pot", "banana", "apple", "banana"});
+    solution({3, 2, 4, 1, 1});
     return 0;
 }
