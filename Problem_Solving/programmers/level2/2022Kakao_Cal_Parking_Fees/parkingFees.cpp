@@ -1,15 +1,14 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <string_view>
-#include <iostream>
+
 using namespace std;
 
-int HourToMin(string& time) {
+int HourToMin(const string& time) {
     return stoi(time.substr(0, 2)) * 60 + stoi(time.substr(3, 2));
 }
 
-int CalFees(int& time, vector<int>& fees) {
+int CalFees(int& time, const vector<int>& fees) {
     time -= fees[0];
     // 기본 요금
     if (time < 1) 
