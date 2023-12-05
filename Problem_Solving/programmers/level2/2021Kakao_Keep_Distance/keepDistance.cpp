@@ -6,10 +6,10 @@
 using namespace std;
 
 struct Pos {
-    int x, y, dist = 0;
+    unsigned int x, y, dist = 0;
 };
 
-bool ChkDistance(const vector<string>& places, const int& initX, const int& initY) {
+bool ChkDistance(const vector<string>& places, const unsigned int& initX, const unsigned int& initY) {
     static const int dx[4] = {1, 0, -1, 0};
     static const int dy[4] = {0, -1, 0, 1};
     
@@ -28,21 +28,22 @@ bool ChkDistance(const vector<string>& places, const int& initX, const int& init
             continue;
         
         for (int i = 0; i < 4; i++) {
-            int nx = cur.x + dx[i];
-            int ny = cur.y + dy[i];
+            unsigned int nx = cur.x + dx[i];
+            unsigned int ny = cur.y + dy[i];
                 
-            if (nx < 0 || ny < 0 || nx > 4 || ny > 4 || visited[ny][nx] || places[ny][nx] == 'X')
+            // unsigned int로 범위를 벗어나 음수가 되면 큰 수가 된다.
+            if (nx > 4 || ny > 4 || visited[ny][nx] || places[ny][nx] == 'X')
                 continue;
             
             if (places[ny][nx] == 'P')
-                return false;
+                return true;
 
             visited[ny][nx] = true;
             q.push({nx, ny, cur.dist + 1});
         }
     }
     
-    return true;
+    return false;
 }
 
 vector<int> solution(vector<vector<string>> places) {
@@ -53,11 +54,10 @@ vector<int> solution(vector<vector<string>> places) {
         
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) { 
-                if (p[i][j] == 'P') 
-                    keep &= ChkDistance(p, j, i);
-                
-                if (!keep)
+                if (p[i][j] == 'P' && ChkDistance(p, j, i)) {
+                    keep = false;
                     break;
+                }
             }
         }
         answer.push_back(keep);
