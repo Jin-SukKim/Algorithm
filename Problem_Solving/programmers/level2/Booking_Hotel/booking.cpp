@@ -2,11 +2,20 @@
 #include <vector>
 #include <algorithm>
 #include <queue>
+#include <sstream>
 
 using namespace std;
 
 int ToMin(const string& time)
 {
+    // string을 다른 type으로 변환할 수 있다.
+    // ostringstream은 다른 type을 string으로 변화할 수 있다.
+    /*
+        istringstream i(time);
+        int hr, min;
+        char tmp;
+        i >> hr >> tmp >> min;
+    */
     return stoi(time.substr(0, 2)) * 60 + stoi(time.substr(3, 2));
 }
 
