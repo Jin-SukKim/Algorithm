@@ -8,8 +8,9 @@ using namespace std;
 
 int ToMin(const string& time)
 {
-    // string을 다른 type으로 변환할 수 있다.
+    // istringstream은 string을 다른 type으로 변환할 수 있다.
     // ostringstream은 다른 type을 string으로 변화할 수 있다.
+    // stringstream은 string을 활용
     /*
         istringstream i(time);
         int hr, min;
