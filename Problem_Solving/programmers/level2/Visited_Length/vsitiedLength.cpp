@@ -2,10 +2,10 @@
 #include <map>
 using namespace std;
 
-using Pos = pair<int, int>;
-using Edge = pair<Pos, Pos>;
-
 int solution(string dirs) {
+    using Pos = pair<int, int>;
+    using Edge = pair<Pos, Pos>;
+    
     int answer = 0;
     Pos cur = {5, 5}; // 시작은 정중앙에서
     // 방향
