@@ -13,7 +13,7 @@ int Combination(const vector<vector<string>>& relation, const int& b, const int&
             // 현재 조합에 맞는 col이라면 b = 0110일때 index 1, 2가 맞는 col이 된다.
             // (index 1, 2는 j와 같다.)
             if (b & (1 << j)) {
-                temp += relation[i][j];
+                temp += relation[i][j] + " ";
             }
         }
         key.insert(temp);
