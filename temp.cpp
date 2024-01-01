@@ -2,8 +2,7 @@
 #include <vector>
 #include <sstream>
 #include <map>
-#include <iostream>
-#include <memory>
+
 using namespace std;
 
 enum class RecordType { Leave, Enter }; // 0, 1
@@ -68,9 +67,7 @@ vector<string> solution(vector<string> record) {
     
     vector<string> answer(length);
     for (auto [id, status] : nameRecord) {
-        cout << id << '\n';
         for (History& h : status->history) {
-            cout << static_cast<int>(h.type) << ' ';
             string text;
             if (h.type == RecordType::Enter)
                 text = id + "님이 들어왔습니다.";
@@ -78,7 +75,6 @@ vector<string> solution(vector<string> record) {
                 text = id + "님이 나갔습니다.";
             answer[h.index] = text;
         }
-        cout << '\n';
     }
     
     
@@ -86,6 +82,7 @@ vector<string> solution(vector<string> record) {
 }
 
 int main() {
-  solution({"Enter uid1234 Muzi", "Enter uid4567 Prodo","Leave uid1234","Enter uid1234 Prodo","Change uid4567 Ryan"});
+  solution({"Enter uid1234 Muzi", "Enter uid4567 Prodo",
+    "Leave uid1234","Enter uid1234 Prodo","Change uid4567 Ryan"});
   return 0;
 }
