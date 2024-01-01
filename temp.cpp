@@ -1,51 +1,91 @@
-import hmmlearn.hmm as hmm
-import numpy as np
-import os
+#include <string>
+#include <vector>
+#include <sstream>
+#include <map>
+#include <iostream>
+#include <memory>
+using namespace std;
 
-def get_arbid_seq(filepath):
-  seq_li = list()
-  with open(filepath, 'r') as f:
-    lines = f.readlines()
-    for line in lines:
-#seq = np.append(seq, line.split('\t')[1]) 
-      seq_li.append(line.split('\t')[1])
-      arbID_seq = np.fromiter((int(x, 16) for x in seq_li), dtype=np.uint16)
-  #print(arbID_seq)
-  return arbID_seq
+enum class RecordType { Leave, Enter }; // 0, 1
 
-def change_sequence_by_hamming_distance(window, hamming_seq, threshold):
-  modified_window = window.copy()
-  for i, value in enumerate(window):
-    if np.abs(value - hamming_seq[i]) <= threshold:
-      modified_window[i] = hamming_seq[i]
-  return modified_window
+struct History {
+    int index;
+    RecordType type;
+};
 
-def get_split_arbid_seq_by_wnd(arbidseq, wndsize=5):
-  splited = np.array([])
-  cnt = 0
-  for i in range(np.size(arbidseq)-wndsize+1):
-    splited = np.append(splited, arbidseq[i:i+wndsize]); cnt+=1
-  splited = np.reshape(splited, (cnt,wndsize))
-  return splited
+struct Status {
+    bool in;
+    string name;
+    vector<History> history;
+};
 
+vector<string> solution(vector<string> record) {
+    map<string, shared_ptr<Status>> nameRecord;
+    vector<pair<string, string>> changeList;
+    int length = 0;
+    
+    for (string& s : record) {
+        istringstream istring(s);
+        RecordType type;
+        string temp;
 
-train_arbID_seq = get_arbid_seq("C:\\Users\\SCHCSRC\\Desktop\\train_s.txt")
-tr_set = get_split_arbid_seq_by_wnd(train_arbID_seq)
-test_arbID_seq = get_arbid_seq("C:\\Users\\SCHCSRC\\Desktop\\test_s.txt")
-te_set = get_split_arbid_seq_by_wnd(test_arbID_seq)
+        istring >> temp;
+        
+        if (temp == "Change") {
+            string before, after;
+            istring >> before >> after;
+            // 이전의 log가 있고 방에 들어와 있다면
+            if (nameRecord.count(before) && nameRecord[before]->in) {
+                changeList.push_back({before, after});
+            }
+            continue;
+        }
+        
+        else if (temp == "Enter") 
+            type = RecordType::Enter;
+        else if (temp == "Leave")
+            type = RecordType::Leave;
+        
+        while (istring >> temp) {
+            if (nameRecord.count(temp)) {
+              nameRecord[temp]->in = static_cast<bool>(type);
+              nameRecord[temp]->history.push_back({length, type});
+            } else {
+              shared_ptr<Status> status = make_shared<Status>();
+              status->in = static_cast<bool>(type);
+              status->history.push_back({length, type});
+              nameRecord[temp] = status;
+            }
+            ++length;
+        }
+    }
 
+    // history의 id 변경
+    for (auto [before, after] : changeList) {
+        nameRecord[after] = nameRecord[before]; // 포인터를 옮기고
+        nameRecord.erase(nameRecord.find(before)); // 이전 id 삭제
+    }
+    
+    vector<string> answer(length);
+    for (auto [id, status] : nameRecord) {
+        cout << id << '\n';
+        for (History& h : status->history) {
+            cout << static_cast<int>(h.type) << ' ';
+            string text;
+            if (h.type == RecordType::Enter)
+                text = id + "님이 들어왔습니다.";
+            else if (h.type == RecordType::Leave)
+                text = id + "님이 나갔습니다.";
+            answer[h.index] = text;
+        }
+        cout << '\n';
+    }
+    
+    
+    return answer;
+}
 
-
-# 해당 부분에서 해밍 거리 시퀀스를 생성 및 전달
-hamming_seq = ...
-tr_set = get_split_arbid_seq_by_wnd(train_arbID_seq, wndsize=5, hamming_seq=hamming_seq)
-te_set = get_split_arbid_seq_by_wnd(test_arbID_seq, wndsize=5, hamming_seq=hamming_seq)
-
-h = hmm.GaussianHMM(2)
-print('--------------')
-h.fit(tr_set)
-print(h.score(tr_set)) #sum of log probability
-print(h.score(te_set))
-print('--------------')
-print(h.startprob_) #init prob
-print(h.transmat_) #state transition prob
+int main() {
+  solution({"Enter uid1234 Muzi", "Enter uid4567 Prodo","Leave uid1234","Enter uid1234 Prodo","Change uid4567 Ryan"});
+  return 0;
+}
