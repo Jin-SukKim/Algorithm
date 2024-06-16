@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <ctime>
 
+// priority_queue를 사용하면 매우 쉽다.
 #define MAX 100
 using namespace std;
 
